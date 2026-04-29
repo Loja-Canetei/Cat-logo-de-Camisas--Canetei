@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Catálogo | Minha Loja</title>
+  <title>Catálogo | Loja Canetei</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="top">
     <div class="wrap">
       <div class="brand">
-        <div class="brand__title">Minha Loja de Camisas</div>
-        <div class="brand__subtitle">Catálogo</div>
+        <div class="brand__title">Loja Canetei</div>
+        <div class="brand__subtitle">Camisas de Time - Catálogo</div>
       </div>
 
       <a class="btn btn--wpp" id="wppTopo" href="#" target="_blank" rel="noopener">
@@ -22,18 +22,26 @@
 
   <main class="wrap">
     <section class="hero">
-      <h1>Camisas de time</h1>
-      <p>Escolha sua camisa e chame no WhatsApp para comprar.</p>
+      <h1>Camisas de Time</h1>
+      <p>Escolha sua camisa pelo código e consulte preço no WhatsApp.</p>
     </section>
 
     <section class="controls">
-      <input id="busca" class="input" type="search" placeholder="Buscar (ex: Flamengo, Real, Brasil)..." />
+      <input id="busca" class="input" type="search" placeholder="Buscar por time, código ou liga (ex: CAN001, Real Madrid)..." />
 
       <select id="filtro" class="input">
         <option value="todos">Todas as categorias</option>
+        <option value="laliga">La Liga</option>
+        <option value="premier">Premier League</option>
+        <option value="seriea">Serie A</option>
         <option value="brasileirao">Brasileirão</option>
-        <option value="europeu">Europeus</option>
+        <option value="bundesliga">Bundesliga</option>
+        <option value="ligue1">Ligue 1</option>
+        <option value="mls">MLS</option>
+        <option value="saudi">Saudi Pro League</option>
         <option value="selecoes">Seleções</option>
+        <option value="copa2026">Copa do Mundo 2026</option>
+        <option value="retros">Retrôs</option>
       </select>
     </section>
 
@@ -45,7 +53,7 @@
 
   <footer class="footer">
     <div class="wrap footer__inner">
-      <small>© <span id="ano"></span> Minha Loja — Jequié/BA</small>
+      <small>© <span id="ano"></span> Loja Canetei — Jequié/BA</small>
     </div>
   </footer>
 
