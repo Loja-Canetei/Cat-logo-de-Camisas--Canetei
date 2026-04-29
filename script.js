@@ -2,19 +2,19 @@
 const WHATSAPP_NUMERO = "5573999571065";
 const NOME_LOJA = "Loja Canetei";
 
-// Imagem fallback (pode trocar por uma sua, ex: "sem-foto.jpg")
+// Imagem fallback
 const IMG_FALLBACK =
   "data:image/svg+xml;charset=utf-8," +
   encodeURIComponent(`
-  <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
-    <rect width="100%" height="100%" fill="#e9e9ee"/>
+  <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+    <rect width="100%" height="100%" fill="#eedaf6"/>
     <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-      font-family="Arial" font-size="44" fill="#666">
-      Sem imagem
+      font-family="Arial" font-size="18" fill="#6b2c91" font-weight="bold">
+      Imagem em breve
     </text>
   </svg>`);
 
-// ======= PRODUTOS (EDITE AQUI) =======
+// ======= PRODUTOS =======
 const PRODUTOS = [
   {
     id: 1,
@@ -23,8 +23,8 @@ const PRODUTOS = [
     categoria: "premier",
     liga: "Premier League",
     masculino: {
+      // AJUSTE: coloque os nomes EXATOS dos seus arquivos
       imagens: [
-        // ATENÇÃO: ajuste os caminhos para onde suas imagens realmente estão no GitHub Pages
         "camisas/liverpool-masc-frente.jpg",
         "camisas/liverpool-masc-costas.jpg",
       ],
@@ -32,22 +32,40 @@ const PRODUTOS = [
     },
     jogador: {
       imagens: [
-        "camisas/liverpool-jogador-frente.jpg",
-        "camisas/liverpool-jogador-costas.jpg",
+        "camisas/liverpool-jogador-frente.jpg", 
+        "camisas/liverpool-jogador-costas.jpg"
       ],
       tamanhos: ["P", "M", "G", "GG"],
     },
     feminino: {
       imagens: [
         "camisas/liverpool-fem-frente.jpg",
-        "camisas/liverpool-fem-costas.jpg",
+        "camisas/liverpool-fem-costas.jpg"
       ],
       tamanhos: ["PP", "P", "M", "G"],
     },
   },
+  
+  // ADICIONE MAIS PRODUTOS AQUI seguindo o mesmo padrão
+  /*
+  {
+    id: 2,
+    codigo: "CAN002", 
+    nome: "Real Madrid Home 2024",
+    categoria: "laliga",
+    liga: "La Liga",
+    masculino: {
+      imagens: [
+        "camisas/real-madrid-masc-frente.jpg",
+        "camisas/real-madrid-masc-costas.jpg"
+      ],
+      tamanhos: ["P", "M", "G", "GG"]
+    }
+  }
+  */
 ];
 
-// ============== NÃO PRECISA ALTERAR ABAIXO ===============
+// ============== FUNÇÕES AUXILIARES ===============
 
 const $grid = document.getElementById("grid");
 const $vazio = document.getElementById("vazio");
@@ -88,12 +106,14 @@ function getVersaoInicial(produto) {
 
 function safeImagens(arr) {
   if (!Array.isArray(arr) || arr.length === 0) return [IMG_FALLBACK];
-  return arr.filter(Boolean);
+  return arr.filter(Boolean).map(src => src || IMG_FALLBACK);
 }
 
 function htmlBadges(tamanhos = []) {
-  if (!Array.isArray(tamanhos) || tamanhos.length === 0) return `<span class="badge">Consulte</span>`;
-  return tamanhos.map((t) => `<span class="badge">${escapeHtml(t)}</span>`).join("");
+  if (!Array.isArray(tamanhos) || tamanhos.length === 0) {
+    return `<span class="badge">Consulte</span>`;
+  }
+  return tamanhos.map(t => `<span class="badge">${escapeHtml(t)}</span>`).join("");
 }
 
 function htmlGaleria(imagens = [], produtoId = "") {
@@ -118,6 +138,8 @@ function htmlGaleria(imagens = [], produtoId = "") {
   `;
 }
 
+// ============== RENDERIZAÇÃO ===============
+
 function render(lista) {
   if (!$grid) return;
 
@@ -137,7 +159,7 @@ function render(lista) {
     const imagens = safeImagens(dados?.imagens);
     const imgPrincipal = imagens[0] || IMG_FALLBACK;
 
-    const labelInicial = versoes.find((v) => v.key === versaoInicial)?.label || "Produto";
+    const labelInicial = versoes.find(v => v.key === versaoInicial)?.label || "Produto";
 
     const msg = `Olá! Vim pelo catálogo da ${NOME_LOJA} e tenho interesse na camisa código *${p.codigo}* (${labelInicial}) - ${p.nome}. Qual o valor e disponibilidade?`;
 
@@ -147,8 +169,8 @@ function render(lista) {
 
     card.innerHTML = `
       <div class="card__images">
-        <img class="card__img" id="img-${p.id}" src="${escapeHtml(imgPrincipal)}" alt="${escapeHtml(p.nome)}"
-             onerror="this.src='${IMG_FALLBACK}'" loading="lazy">
+        <img class="card__img" id="img-${p.id}" src="${escapeHtml(imgPrincipal)}" 
+             alt="${escapeHtml(p.nome)}" onerror="this.src='${IMG_FALLBACK}'" loading="lazy">
         <div class="galeria-wrapper">
           ${htmlGaleria(imagens, p.id)}
         </div>
@@ -156,8 +178,7 @@ function render(lista) {
 
       <div class="card__body">
         <div class="card__code">
-          Código:
-          <span class="codigo-atual">${escapeHtml(p.codigo)} (${escapeHtml(labelInicial)})</span>
+          Código: <span class="codigo-atual">${escapeHtml(p.codigo)} (${escapeHtml(labelInicial)})</span>
         </div>
 
         <div class="card__title">${escapeHtml(p.nome)}</div>
@@ -166,7 +187,7 @@ function render(lista) {
         <div class="variantes" role="group" aria-label="versões">
           ${versoes
             .map(
-              (v) =>
+              v =>
                 `<button class="btn-variante ${v.key === versaoInicial ? "ativa" : ""}"
                          type="button" data-versao="${escapeHtml(v.key)}"
                          data-produto="${escapeHtml(p.id)}">${escapeHtml(v.label)}</button>`
@@ -188,8 +209,10 @@ function render(lista) {
   }
 }
 
-// Delegação de eventos (sem onclick no HTML)
-document.addEventListener("click", (e) => {
+// ============== EVENTOS ===============
+
+document.addEventListener("click", e => {
+  // Clique em miniatura
   const miniBtn = e.target.closest?.(".miniatura");
   if (miniBtn) {
     const card = miniBtn.closest(".card");
@@ -198,38 +221,39 @@ document.addEventListener("click", (e) => {
 
     if (main && src) {
       main.src = src;
-      card.querySelectorAll(".miniatura").forEach((b) => b.classList.remove("ativa"));
+      card.querySelectorAll(".miniatura").forEach(b => b.classList.remove("ativa"));
       miniBtn.classList.add("ativa");
     }
     return;
   }
 
+  // Clique em botão de variante
   const btnVar = e.target.closest?.(".btn-variante");
   if (btnVar) {
     const card = btnVar.closest(".card");
     const idProduto = Number(btnVar.dataset.produto);
     const versao = btnVar.dataset.versao;
 
-    const produto = PRODUTOS.find((p) => p.id === idProduto);
+    const produto = PRODUTOS.find(p => p.id === idProduto);
     if (!produto || !versao || !produto[versao]) return;
 
     const versoes = getVersoes(produto);
-    const label = versoes.find((v) => v.key === versao)?.label || "Produto";
+    const label = versoes.find(v => v.key === versao)?.label || "Produto";
     const dados = produto[versao];
 
-    // Botão ativo
-    card.querySelectorAll(".btn-variante").forEach((b) => b.classList.remove("ativa"));
+    // Atualizar botão ativo
+    card.querySelectorAll(".btn-variante").forEach(b => b.classList.remove("ativa"));
     btnVar.classList.add("ativa");
 
-    // Código
+    // Atualizar código
     const codigoEl = card.querySelector(".codigo-atual");
     if (codigoEl) codigoEl.textContent = `${produto.codigo} (${label})`;
 
-    // Tamanhos
+    // Atualizar tamanhos
     const tamanhosEl = card.querySelector(".tamanhos-wrapper");
     if (tamanhosEl) tamanhosEl.innerHTML = htmlBadges(dados.tamanhos);
 
-    // Imagens/galeria
+    // Atualizar imagens
     const imagens = safeImagens(dados.imagens);
     const mainImg = card.querySelector(".card__img");
     if (mainImg) mainImg.src = imagens[0] || IMG_FALLBACK;
@@ -237,7 +261,7 @@ document.addEventListener("click", (e) => {
     const galeriaWrap = card.querySelector(".galeria-wrapper");
     if (galeriaWrap) galeriaWrap.innerHTML = htmlGaleria(imagens, idProduto);
 
-    // WhatsApp
+    // Atualizar link WhatsApp
     const btnComprar = card.querySelector(".btn--buy");
     const msg = `Olá! Vim pelo catálogo da ${NOME_LOJA} e tenho interesse na camisa código *${produto.codigo}* (${label}) - ${produto.nome}. Qual o valor e disponibilidade?`;
     if (btnComprar) btnComprar.href = linkWhatsApp(msg);
@@ -246,11 +270,12 @@ document.addEventListener("click", (e) => {
   }
 });
 
+// Filtros
 function aplicarFiltros() {
   const termo = ($busca?.value || "").toLowerCase().trim();
   const cat = $filtro?.value || "todos";
 
-  const lista = PRODUTOS.filter((p) => {
+  const lista = PRODUTOS.filter(p => {
     const okTermo =
       !termo ||
       (p.nome || "").toLowerCase().includes(termo) ||
@@ -267,11 +292,12 @@ function aplicarFiltros() {
 $busca?.addEventListener("input", aplicarFiltros);
 $filtro?.addEventListener("change", aplicarFiltros);
 
+// WhatsApp do topo
 if ($wppTopo) {
   $wppTopo.href = linkWhatsApp(
     `Olá! Vim pelo catálogo da ${NOME_LOJA} e gostaria de ver as camisas disponíveis!`
   );
 }
 
-// Inicializa
+// ============== INICIALIZAÇÃO ===============
 render(PRODUTOS);
