@@ -1,9 +1,20 @@
-alert("script.js carregou!");
-// ======= DADOS DA LOJA =======
+// ======= CONFIGURAÇÕES =======
 const WHATSAPP_NUMERO = "5573999571065";
 const NOME_LOJA = "Loja Canetei";
 
-// ======= PRODUTOS (EXEMPLOS, COLE OS SEUS JÁ NO MODELO NOVO) =======
+// Imagem fallback (pode trocar por uma sua, ex: "sem-foto.jpg")
+const IMG_FALLBACK =
+  "data:image/svg+xml;charset=utf-8," +
+  encodeURIComponent(`
+  <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
+    <rect width="100%" height="100%" fill="#e9e9ee"/>
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+      font-family="Arial" font-size="44" fill="#666">
+      Sem imagem
+    </text>
+  </svg>`);
+
+// ======= PRODUTOS (EDITE AQUI) =======
 const PRODUTOS = [
   {
     id: 1,
@@ -13,194 +24,254 @@ const PRODUTOS = [
     liga: "Premier League",
     masculino: {
       imagens: [
+        // ATENÇÃO: ajuste os caminhos para onde suas imagens realmente estão no GitHub Pages
         "camisas/liverpool-masc-frente.jpg",
         "camisas/liverpool-masc-costas.jpg",
       ],
-      tamanhos: ["P", "M", "G", "GG"]
+      tamanhos: ["P", "M", "G", "GG"],
     },
     jogador: {
       imagens: [
         "camisas/liverpool-jogador-frente.jpg",
         "camisas/liverpool-jogador-costas.jpg",
       ],
-      tamanhos: ["P", "M", "G", "GG"]
+      tamanhos: ["P", "M", "G", "GG"],
     },
     feminino: {
       imagens: [
         "camisas/liverpool-fem-frente.jpg",
         "camisas/liverpool-fem-costas.jpg",
       ],
-      tamanhos: ["PP", "P", "M", "G"]
-    }
+      tamanhos: ["PP", "P", "M", "G"],
+    },
   },
-  // ...adicione outros produtos aqui no mesmo formato...
 ];
 
-// ============== NÃO PRECISA ALTERAR NADA ABAIXO ===============
+// ============== NÃO PRECISA ALTERAR ABAIXO ===============
 
-const grid   = document.getElementById("grid");
-const vazio  = document.getElementById("vazio");
-const busca  = document.getElementById("busca");
-const filtro = document.getElementById("filtro");
-document.getElementById("ano").textContent = new Date().getFullYear();
+const $grid = document.getElementById("grid");
+const $vazio = document.getElementById("vazio");
+const $busca = document.getElementById("busca");
+const $filtro = document.getElementById("filtro");
+const $ano = document.getElementById("ano");
+const $wppTopo = document.getElementById("wppTopo");
+
+if ($ano) $ano.textContent = String(new Date().getFullYear());
 
 function linkWhatsApp(mensagem) {
-  const base = `https://wa.me/${WHATSAPP_NUMERO}`;
-  return `${base}?text=${encodeURIComponent(mensagem)}`;
+  return `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensagem)}`;
+}
+
+function escapeHtml(s) {
+  return String(s ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function getVersoes(produto) {
+  const versoes = [];
+  if (produto.masculino) versoes.push({ key: "masculino", label: "Masculina" });
+  if (produto.jogador) versoes.push({ key: "jogador", label: "Jogador" });
+  if (produto.feminino) versoes.push({ key: "feminino", label: "Feminina" });
+  return versoes;
+}
+
+function getVersaoInicial(produto) {
+  if (produto.masculino) return "masculino";
+  if (produto.jogador) return "jogador";
+  if (produto.feminino) return "feminino";
+  return null;
+}
+
+function safeImagens(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return [IMG_FALLBACK];
+  return arr.filter(Boolean);
 }
 
 function htmlBadges(tamanhos = []) {
-  return (tamanhos || []).map(t => `<span class="badge">${t}</span>`).join("");
+  if (!Array.isArray(tamanhos) || tamanhos.length === 0) return `<span class="badge">Consulte</span>`;
+  return tamanhos.map((t) => `<span class="badge">${escapeHtml(t)}</span>`).join("");
 }
 
-function htmlGaleria(imagens = []) {
-  if (!Array.isArray(imagens) || imagens.length <= 1) return "";
+function htmlGaleria(imagens = [], produtoId = "") {
+  const imgs = safeImagens(imagens);
+  if (imgs.length <= 1) return "";
+
   return `
-    <div class="galeria">
-      ${imagens.map((img,i)=>
-        `<img class="miniatura ${i===0?'ativa':''}" src="${img}" data-src="${img}" alt="miniatura" onclick="trocarImagem(this)">`
-      ).join("")}
+    <div class="galeria" aria-label="miniaturas">
+      ${imgs
+        .map(
+          (img, i) => `
+          <button class="miniatura ${i === 0 ? "ativa" : ""}" type="button"
+                  data-produto="${produtoId}" data-src="${escapeHtml(img)}"
+                  aria-label="ver imagem ${i + 1}">
+            <img src="${escapeHtml(img)}" alt="miniatura ${i + 1}"
+                 onerror="this.src='${IMG_FALLBACK}'">
+          </button>
+        `
+        )
+        .join("")}
     </div>
   `;
 }
 
 function render(lista) {
-  grid.innerHTML = "";
-  if (!lista.length) {
-    vazio.classList.remove("hidden");
+  if (!$grid) return;
+
+  $grid.innerHTML = "";
+
+  if (!Array.isArray(lista) || lista.length === 0) {
+    if ($vazio) $vazio.classList.remove("hidden");
     return;
   }
-  vazio.classList.add("hidden");
-  
+  if ($vazio) $vazio.classList.add("hidden");
+
   for (const p of lista) {
-    // Definindo versão inicial padrão
-    let versaoAtual = 'masculino';
-    const versoes = [];
-    
-    if (p.masculino) versoes.push({nome:"Masculina", key:"masculino"});
-    if (p.jogador) versoes.push({nome:"Jogador", key:"jogador"});
-    if (p.feminino) versoes.push({nome:"Feminina", key:"feminino"});
-    
-    // Pega versão padrão
-    if      (p.masculino) versaoAtual = 'masculino';
-    else if (p.jogador)   versaoAtual = 'jogador';
-    else if (p.feminino)  versaoAtual = 'feminino';
-    
-    const dadosAtual = p[versaoAtual];
-    const imagensBase = Array.isArray(dadosAtual.imagens) && dadosAtual.imagens.length ? dadosAtual.imagens : [];
-    const imgPrincipal = imagensBase[0] || "";
+    const versoes = getVersoes(p);
+    const versaoInicial = getVersaoInicial(p);
+    const dados = versaoInicial ? p[versaoInicial] : null;
 
-    const el = document.createElement("article");
-    el.className = "card";
-    el.setAttribute("data-id", p.id);
+    const imagens = safeImagens(dados?.imagens);
+    const imgPrincipal = imagens[0] || IMG_FALLBACK;
 
-    // Mensagem padrão
-    const msgPadrao = `Olá! Vim pelo catálogo e tenho interesse na camisa código *${p.codigo}* (${versoes.find(v=>v.key===versaoAtual).nome}) - ${p.nome}. Qual o valor e disponibilidade?`;
-    const wppPadrao = linkWhatsApp(msgPadrao);
+    const labelInicial = versoes.find((v) => v.key === versaoInicial)?.label || "Produto";
 
-    el.innerHTML = `
+    const msg = `Olá! Vim pelo catálogo da ${NOME_LOJA} e tenho interesse na camisa código *${p.codigo}* (${labelInicial}) - ${p.nome}. Qual o valor e disponibilidade?`;
+
+    const card = document.createElement("article");
+    card.className = "card";
+    card.dataset.id = String(p.id);
+
+    card.innerHTML = `
       <div class="card__images">
-        <img class="card__img" id="img-${p.id}" src="${imgPrincipal}" alt="${p.nome}">
+        <img class="card__img" id="img-${p.id}" src="${escapeHtml(imgPrincipal)}" alt="${escapeHtml(p.nome)}"
+             onerror="this.src='${IMG_FALLBACK}'" loading="lazy">
         <div class="galeria-wrapper">
-          ${htmlGaleria(imagensBase)}
+          ${htmlGaleria(imagens, p.id)}
         </div>
       </div>
 
       <div class="card__body">
-        <div class="card__code">Código: <span class="codigo-atual">${p.codigo} (${versoes.find(v=>v.key===versaoAtual).nome})</span></div>
-        <div class="card__title">${p.nome}</div>
-        <div class="card__meta"><span>${p.liga}</span></div>
+        <div class="card__code">
+          Código:
+          <span class="codigo-atual">${escapeHtml(p.codigo)} (${escapeHtml(labelInicial)})</span>
+        </div>
 
-        <div class="variantes">
-          ${versoes.map((v,i)=> 
-            `<button class="btn-variante ${i===0?'ativa':''}" onclick="selecionarVersao(this, ${p.id}, '${v.key}')">${v.nome}</button>`
-          ).join("")}
+        <div class="card__title">${escapeHtml(p.nome)}</div>
+        <div class="card__meta"><span>${escapeHtml(p.liga || "")}</span></div>
+
+        <div class="variantes" role="group" aria-label="versões">
+          ${versoes
+            .map(
+              (v) =>
+                `<button class="btn-variante ${v.key === versaoInicial ? "ativa" : ""}"
+                         type="button" data-versao="${escapeHtml(v.key)}"
+                         data-produto="${escapeHtml(p.id)}">${escapeHtml(v.label)}</button>`
+            )
+            .join("")}
         </div>
+
         <div class="badges tamanhos-wrapper">
-          ${htmlBadges(dadosAtual.tamanhos)}
+          ${htmlBadges(dados?.tamanhos)}
         </div>
-        <a class="btn btn--buy" href="${wppPadrao}" target="_blank" rel="noopener">Consultar Preço</a>
+
+        <a class="btn btn--buy" href="${linkWhatsApp(msg)}" target="_blank" rel="noopener">
+          Consultar Preço
+        </a>
       </div>
     `;
-    grid.appendChild(el);
+
+    $grid.appendChild(card);
   }
 }
 
-// Trocar imagem principal ao clicar na miniatura
-window.trocarImagem = function(miniatura) {
-  const card = miniatura.closest(".card");
-  const main = card.querySelector(".card__img");
-  const nova = miniatura.dataset.src;
-  
-  if (!nova || !main) return;
-  
-  main.src = nova;
-  card.querySelectorAll(".miniatura").forEach(m => m.classList.remove("ativa"));
-  miniatura.classList.add("ativa");
-};
+// Delegação de eventos (sem onclick no HTML)
+document.addEventListener("click", (e) => {
+  const miniBtn = e.target.closest?.(".miniatura");
+  if (miniBtn) {
+    const card = miniBtn.closest(".card");
+    const main = card?.querySelector(".card__img");
+    const src = miniBtn.dataset.src;
 
-// Trocar versão (masculina, jogador, feminina)
-window.selecionarVersao = function(botao, idProduto, versao) {
-  const card = botao.closest(".card");
-  const produto = PRODUTOS.find(p => p.id === idProduto);
-  
-  if (!produto) return;
-  
-  const dados = produto[versao];
-  if (!dados) return;
-  
-  // Botão ativo
-  card.querySelectorAll(".btn-variante").forEach(b => b.classList.remove("ativa"));
-  botao.classList.add("ativa");
-  
-  // Código mostrado
-  const nomeVersao = botao.textContent.trim();
-  const codigoEl = card.querySelector(".codigo-atual");
-  if (codigoEl) codigoEl.textContent = `${produto.codigo} (${nomeVersao})`;
-  
-  // Tamanhos
-  const tamanhosEl = card.querySelector(".tamanhos-wrapper");
-  if (tamanhosEl) tamanhosEl.innerHTML = htmlBadges(dados.tamanhos);
-  
-  // Galeria/imagem
-  const imagens = Array.isArray(dados.imagens) && dados.imagens.length ? dados.imagens : [];
-  const mainImg = card.querySelector(".card__img");
-  if (mainImg && imagens.length) mainImg.src = imagens[0];
-  
-  const galeriaWrap = card.querySelector(".galeria-wrapper");
-  if (galeriaWrap) galeriaWrap.innerHTML = htmlGaleria(imagens);
-  
-  // WhatsApp
-  const btnComprar = card.querySelector(".btn--buy");
-  const msg = `Olá! Vim pelo catálogo e tenho interesse na camisa código *${produto.codigo}* (${nomeVersao}) - ${produto.nome}. Qual o valor e disponibilidade?`;
-  if (btnComprar) btnComprar.href = linkWhatsApp(msg);
-};
+    if (main && src) {
+      main.src = src;
+      card.querySelectorAll(".miniatura").forEach((b) => b.classList.remove("ativa"));
+      miniBtn.classList.add("ativa");
+    }
+    return;
+  }
 
-// Filtro/busca
+  const btnVar = e.target.closest?.(".btn-variante");
+  if (btnVar) {
+    const card = btnVar.closest(".card");
+    const idProduto = Number(btnVar.dataset.produto);
+    const versao = btnVar.dataset.versao;
+
+    const produto = PRODUTOS.find((p) => p.id === idProduto);
+    if (!produto || !versao || !produto[versao]) return;
+
+    const versoes = getVersoes(produto);
+    const label = versoes.find((v) => v.key === versao)?.label || "Produto";
+    const dados = produto[versao];
+
+    // Botão ativo
+    card.querySelectorAll(".btn-variante").forEach((b) => b.classList.remove("ativa"));
+    btnVar.classList.add("ativa");
+
+    // Código
+    const codigoEl = card.querySelector(".codigo-atual");
+    if (codigoEl) codigoEl.textContent = `${produto.codigo} (${label})`;
+
+    // Tamanhos
+    const tamanhosEl = card.querySelector(".tamanhos-wrapper");
+    if (tamanhosEl) tamanhosEl.innerHTML = htmlBadges(dados.tamanhos);
+
+    // Imagens/galeria
+    const imagens = safeImagens(dados.imagens);
+    const mainImg = card.querySelector(".card__img");
+    if (mainImg) mainImg.src = imagens[0] || IMG_FALLBACK;
+
+    const galeriaWrap = card.querySelector(".galeria-wrapper");
+    if (galeriaWrap) galeriaWrap.innerHTML = htmlGaleria(imagens, idProduto);
+
+    // WhatsApp
+    const btnComprar = card.querySelector(".btn--buy");
+    const msg = `Olá! Vim pelo catálogo da ${NOME_LOJA} e tenho interesse na camisa código *${produto.codigo}* (${label}) - ${produto.nome}. Qual o valor e disponibilidade?`;
+    if (btnComprar) btnComprar.href = linkWhatsApp(msg);
+
+    return;
+  }
+});
+
 function aplicarFiltros() {
-  const termo = (busca.value || "").toLowerCase().trim();
-  const cat = filtro.value;
-  
-  const lista = PRODUTOS.filter(p => {
+  const termo = ($busca?.value || "").toLowerCase().trim();
+  const cat = $filtro?.value || "todos";
+
+  const lista = PRODUTOS.filter((p) => {
     const okTermo =
       !termo ||
       (p.nome || "").toLowerCase().includes(termo) ||
       (p.liga || "").toLowerCase().includes(termo) ||
       (p.codigo || "").toLowerCase().includes(termo);
-    
+
     const okCat = cat === "todos" ? true : p.categoria === cat;
     return okTermo && okCat;
   });
-  
+
   render(lista);
 }
 
-busca.addEventListener("input", aplicarFiltros);
-filtro.addEventListener("change", aplicarFiltros);
+$busca?.addEventListener("input", aplicarFiltros);
+$filtro?.addEventListener("change", aplicarFiltros);
 
-// WhatsApp do topo
-document.getElementById("wppTopo").href =
-  linkWhatsApp("Olá! Vim pelo catálogo da Loja Canetei e gostaria de ver as camisas disponíveis!");
+if ($wppTopo) {
+  $wppTopo.href = linkWhatsApp(
+    `Olá! Vim pelo catálogo da ${NOME_LOJA} e gostaria de ver as camisas disponíveis!`
+  );
+}
 
-// Inicializar
+// Inicializa
 render(PRODUTOS);
