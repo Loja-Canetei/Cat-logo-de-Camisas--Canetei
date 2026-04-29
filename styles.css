@@ -346,3 +346,107 @@ body {
     font-size: 20px;
   }
 }
+/* ==============================
+   VARIANTES (Masculina/Jogador/Feminina)
+   + GALERIA DE MINIATURAS
+   (cole no final do seu CSS)
+================================ */
+
+/* Botões de versão */
+.variantes {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-variante {
+  padding: 8px 12px;
+  border: 2px solid var(--rosa-destaque);
+  background: var(--cinza-claro);
+  color: #20112d;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.btn-variante:hover {
+  transform: translateY(-1px);
+  border-color: var(--roxo-principal);
+}
+
+.btn-variante.ativa {
+  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+  color: var(--branco);
+  border-color: var(--roxo-principal);
+}
+
+/* Área de imagens + miniaturas */
+.card__images {
+  display: block;
+}
+
+/* Wrapper da galeria (só organiza o espaçamento) */
+.galeria-wrapper {
+  padding: 8px 10px 10px;
+  background: #fff;
+  border-bottom: 2px solid var(--roxo-principal);
+}
+
+/* Lista de miniaturas */
+.galeria {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.galeria::-webkit-scrollbar {
+  height: 6px;
+}
+.galeria::-webkit-scrollbar-thumb {
+  background: rgba(107, 44, 145, 0.35);
+  border-radius: 10px;
+}
+
+/* Miniaturas */
+.miniatura {
+  width: 56px;
+  height: 44px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.1s ease, filter 0.2s ease;
+  background: #eedaf6; /* combina com seu fundo da imagem */
+}
+
+.miniatura:hover {
+  border-color: var(--rosa-destaque);
+  filter: brightness(1.03);
+}
+
+.miniatura.ativa {
+  border-color: var(--roxo-principal);
+  transform: scale(1.02);
+}
+
+/* Ajustes responsivos (miniaturas menores no celular) */
+@media (max-width: 480px) {
+  .btn-variante {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+  .miniatura {
+    width: 50px;
+    height: 40px;
+    border-radius: 9px;
+  }
+  .galeria-wrapper {
+    padding: 7px 8px 9px;
+  }
+}
