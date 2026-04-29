@@ -25,8 +25,8 @@ const PRODUTOS = [
     masculino: {
       // AJUSTE: coloque os nomes EXATOS dos seus arquivos
       imagens: [
-        "brasil-azul-copa-frente-masc-torcedor.png",
-        "brasil-azul-copa-costas-masc-torcedor.png",
+        "camisas/brasil-azul-copa-frente-masc-torcedor.png",
+        "camisas/brasil-azul-copa-costas-masc-torcedor.png",
       ],
       tamanhos: ["P", "M", "G", "GG"],
     },
