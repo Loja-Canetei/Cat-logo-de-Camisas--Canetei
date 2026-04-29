@@ -1,73 +1,82 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja Canetei - Camisas de Time</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loja Canetei - Camisas de Time</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-    <!-- Header com logo ocupando toda a área -->
-    <header class="top">
-        <div class="logo-container">
-            <img src="logo 2.0.jpg" alt="Canetei Logo" class="logo">
-        </div>
-        
-        <!-- Botão WhatsApp verde centralizado -->
-        <div class="wpp-container">
-            <a href="#" id="wppTopo" class="btn btn--wpp" target="_blank">
-                Falar no WhatsApp
-            </a>
-        </div>
-    </header>
+  <!-- Header com logo ocupando toda a área -->
+  <header class="top">
+    <div class="logo-container">
+      <img src="logo 2.0.jpg" alt="Canetei Logo" class="logo" />
+    </div>
 
-    <!-- Conteúdo principal -->
-    <main class="wrap">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Camisas de Time</h1>
-            <p>Clique no botão "Consultar Preço" na camisa que deseja e conclua a compra no WhatsApp.</p>
-        </section>
+    <!-- Botão WhatsApp verde centralizado -->
+    <div class="wpp-container">
+      <a href="#" id="wppTopo" class="btn btn--wpp" target="_blank" rel="noopener">
+        Falar no WhatsApp
+      </a>
+    </div>
+  </header>
 
-        <!-- Controles de busca e filtro -->
-        <div class="controls">
-            <input type="text" id="busca" class="input" placeholder="Buscar por time, código ou liga (ex: CAN001, Real Madrid)...">
-            <select id="filtro" class="input">
-                <option value="todos">Todas as categorias</option>
-                <option value="laliga">La Liga</option>
-                <option value="premier">Premier League</option>
-                <option value="seriea">Serie A</option>
-                <option value="bundesliga">Bundesliga</option>
-                <option value="ligue1">Ligue 1</option>
-                <option value="brasileirao">Brasileirão</option>
-                <option value="mls">MLS</option>
-                <option value="saudi">Saudi Pro League</option>
-                <option value="selecoes">Seleções</option>
-                <option value="copa2026">Copa do Mundo 2026</option>
-                <option value="retros">Retrô</option>
-            </select>
-        </div>
+  <!-- Conteúdo principal -->
+  <main class="wrap">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Camisas de Time</h1>
+      <p>
+        Clique no botão "Consultar Preço" na camisa que deseja e conclua a compra no WhatsApp.
+      </p>
+    </section>
 
-        <!-- Grid de produtos -->
-        <div class="grid" id="grid">
-            <!-- Os produtos serão inseridos aqui pelo JavaScript -->
-        </div>
+    <!-- Controles de busca e filtro -->
+    <div class="controls">
+      <input
+        type="text"
+        id="busca"
+        class="input"
+        placeholder="Buscar por time, código ou liga (ex: CAN001, Real Madrid)..."
+        autocomplete="off"
+      />
 
-        <!-- Mensagem quando não há resultados -->
-        <div class="empty hidden" id="vazio">
-            <p>Nenhuma camisa encontrada. Tente buscar por outro termo.</p>
-        </div>
-    </main>
+      <select id="filtro" class="input">
+        <option value="todos">Todas as categorias</option>
+        <option value="laliga">La Liga</option>
+        <option value="premier">Premier League</option>
+        <option value="seriea">Serie A</option>
+        <option value="bundesliga">Bundesliga</option>
+        <option value="ligue1">Ligue 1</option>
+        <option value="brasileirao">Brasileirão</option>
+        <option value="mls">MLS</option>
+        <option value="saudi">Saudi Pro League</option>
+        <option value="selecoes">Seleções</option>
+        <option value="copa2026">Copa do Mundo 2026</option>
+        <option value="retros">Retrô</option>
+      </select>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="wrap">
-            <div class="footer__inner">
-                <p>&copy; <span id="ano">2024</span> Loja Canetei - Moda para Craques</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Grid de produtos -->
+    <div class="grid" id="grid"></div>
 
-    <script src="script.js"></script>
+    <!-- Mensagem quando não há resultados -->
+    <div class="empty hidden" id="vazio">
+      <p>Nenhuma camisa encontrada. Tente buscar por outro termo.</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__inner">
+        <p>&copy; <span id="ano"></span> Loja Canetei - Moda para Craques</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- IMPORTANTE: defer garante que o JS rode após o HTML carregar -->
+  <script src="script.js" defer></script>
 </body>
 </html>
