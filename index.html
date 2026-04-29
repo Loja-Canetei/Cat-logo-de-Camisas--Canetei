@@ -30,20 +30,24 @@
         </section>
 
         <!-- Controles de busca e filtro -->
-        <div class="controls">
-            <input type="text" id="searchInput" class="input" placeholder="Buscar por time, código ou liga (ex: CAN001, Real Madrid)...">
-           <select id="categoryFilter" class="input">
-    <option value="">Todas as categorias</option>
-    <option value="La Liga">La Liga</option>
-    <option value="Premier League">Premier League</option>
-    <option value="Serie A">Serie A</option>
-    <option value="Bundesliga">Bundesliga</option>
-    <option value="Ligue 1">Ligue 1</option>
-    <option value="Brasileirão">Brasileirão</option>
-    <option value="Seleções">Seleções</option>
-    <option value="Copa do Mundo 2026">Copa do Mundo 2026</option>
-</select>
-        </div>
+       <div class="controls">
+    <input type="text" id="busca" class="input" placeholder="Buscar por time, código ou liga (ex: CAN001, Real Madrid)...">
+    <select id="filtro" class="input">
+        <option value="todos">Todas as categorias</option>
+        <option value="laliga">La Liga</option>
+        <option value="premier">Premier League</option>
+        <option value="seriea">Serie A</option>
+        <option value="bundesliga">Bundesliga</option>
+        <option value="ligue1">Ligue 1</option>
+        <option value="brasileirao">Brasileirão</option>
+        <option value="mls">MLS</option>
+        <option value="saudi">Saudi Pro League</option>
+        <option value="selecoes">Seleções</option>
+        <option value="copa2026">Copa do Mundo 2026</option>
+        <option value="retros">Retrô</option>
+    </select>
+</div>
+
 
         <!-- Grid de produtos -->
         <div class="grid" id="productsGrid">
