@@ -19,14 +19,14 @@ const PRODUTOS = [
   {
     id: 1,
     codigo: "CAN001",
-    nome: "Liverpool Home 2024",
-    categoria: "premier",
-    liga: "Premier League",
+    nome: "Brasil Azul Copa",
+    categoria: "copa2026",
+    liga: "Copa do Mundo 2026",
     masculino: {
       // AJUSTE: coloque os nomes EXATOS dos seus arquivos
       imagens: [
-        "camisas/liverpool-masc-frente.jpg",
-        "camisas/liverpool-masc-costas.jpg",
+        "brasil-azul-copa-frente-masc-torcedor.png",
+        "brasil-azul-copa-costas-masc-torcedor.png",
       ],
       tamanhos: ["P", "M", "G", "GG"],
     },
