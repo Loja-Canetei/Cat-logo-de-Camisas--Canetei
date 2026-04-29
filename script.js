@@ -70,17 +70,21 @@ function render(lista) {
     return;
   }
   vazio.classList.add("hidden");
+  
   for (const p of lista) {
-    // Definindo versão inicial padrão (masculino, se existir)
+    // Definindo versão inicial padrão
     let versaoAtual = 'masculino';
     const versoes = [];
+    
     if (p.masculino) versoes.push({nome:"Masculina", key:"masculino"});
     if (p.jogador) versoes.push({nome:"Jogador", key:"jogador"});
     if (p.feminino) versoes.push({nome:"Feminina", key:"feminino"});
-    // Pega versão padrão (masculino, senão jogador, senão feminina)
+    
+    // Pega versão padrão
     if      (p.masculino) versaoAtual = 'masculino';
     else if (p.jogador)   versaoAtual = 'jogador';
     else if (p.feminino)  versaoAtual = 'feminino';
+    
     const dadosAtual = p[versaoAtual];
     const imagensBase = Array.isArray(dadosAtual.imagens) && dadosAtual.imagens.length ? dadosAtual.imagens : [];
     const imgPrincipal = imagensBase[0] || "";
@@ -89,7 +93,7 @@ function render(lista) {
     el.className = "card";
     el.setAttribute("data-id", p.id);
 
-    // Mensagem padrão (versão inicial)
+    // Mensagem padrão
     const msgPadrao = `Olá! Vim pelo catálogo e tenho interesse na camisa código *${p.codigo}* (${versoes.find(v=>v.key===versaoAtual).nome}) - ${p.nome}. Qual o valor e disponibilidade?`;
     const wppPadrao = linkWhatsApp(msgPadrao);
 
@@ -126,7 +130,9 @@ window.trocarImagem = function(miniatura) {
   const card = miniatura.closest(".card");
   const main = card.querySelector(".card__img");
   const nova = miniatura.dataset.src;
+  
   if (!nova || !main) return;
+  
   main.src = nova;
   card.querySelectorAll(".miniatura").forEach(m => m.classList.remove("ativa"));
   miniatura.classList.add("ativa");
@@ -135,26 +141,34 @@ window.trocarImagem = function(miniatura) {
 // Trocar versão (masculina, jogador, feminina)
 window.selecionarVersao = function(botao, idProduto, versao) {
   const card = botao.closest(".card");
-  const produto = (window.PRODUTOS || []).find(p => p.id === idProduto);
+  const produto = PRODUTOS.find(p => p.id === idProduto);
+  
   if (!produto) return;
+  
   const dados = produto[versao];
   if (!dados) return;
+  
   // Botão ativo
   card.querySelectorAll(".btn-variante").forEach(b => b.classList.remove("ativa"));
   botao.classList.add("ativa");
+  
   // Código mostrado
   const nomeVersao = botao.textContent.trim();
   const codigoEl = card.querySelector(".codigo-atual");
   if (codigoEl) codigoEl.textContent = `${produto.codigo} (${nomeVersao})`;
+  
   // Tamanhos
   const tamanhosEl = card.querySelector(".tamanhos-wrapper");
   if (tamanhosEl) tamanhosEl.innerHTML = htmlBadges(dados.tamanhos);
+  
   // Galeria/imagem
   const imagens = Array.isArray(dados.imagens) && dados.imagens.length ? dados.imagens : [];
   const mainImg = card.querySelector(".card__img");
   if (mainImg && imagens.length) mainImg.src = imagens[0];
+  
   const galeriaWrap = card.querySelector(".galeria-wrapper");
   if (galeriaWrap) galeriaWrap.innerHTML = htmlGaleria(imagens);
+  
   // WhatsApp
   const btnComprar = card.querySelector(".btn--buy");
   const msg = `Olá! Vim pelo catálogo e tenho interesse na camisa código *${produto.codigo}* (${nomeVersao}) - ${produto.nome}. Qual o valor e disponibilidade?`;
@@ -165,21 +179,27 @@ window.selecionarVersao = function(botao, idProduto, versao) {
 function aplicarFiltros() {
   const termo = (busca.value || "").toLowerCase().trim();
   const cat = filtro.value;
-  const lista = (window.PRODUTOS || []).filter(p => {
+  
+  const lista = PRODUTOS.filter(p => {
     const okTermo =
       !termo ||
       (p.nome || "").toLowerCase().includes(termo) ||
       (p.liga || "").toLowerCase().includes(termo) ||
       (p.codigo || "").toLowerCase().includes(termo);
+    
     const okCat = cat === "todos" ? true : p.categoria === cat;
     return okTermo && okCat;
   });
+  
   render(lista);
 }
+
 busca.addEventListener("input", aplicarFiltros);
 filtro.addEventListener("change", aplicarFiltros);
 
+// WhatsApp do topo
 document.getElementById("wppTopo").href =
   linkWhatsApp("Olá! Vim pelo catálogo da Loja Canetei e gostaria de ver as camisas disponíveis!");
 
-render(window.PRODUTOS || []);
+// Inicializar
+render(PRODUTOS);
