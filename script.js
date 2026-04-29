@@ -1,3 +1,4 @@
+alert("script.js carregou!");
 // ======= DADOS DA LOJA =======
 const WHATSAPP_NUMERO = "5573999571065";
 const NOME_LOJA = "Loja Canetei";
