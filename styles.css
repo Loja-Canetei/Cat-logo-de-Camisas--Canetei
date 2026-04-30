@@ -33,6 +33,9 @@ body {
   border-bottom: 4px solid var(--rosa-destaque);
   z-index: 100;
   padding: 0;
+
+  /* >>> NOVO: permite posicionar o botão no canto */
+  position: sticky;
 }
 
 /* Container da logo preenchendo toda a altura disponível */
@@ -43,22 +46,27 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+
+  /* >>> NOVO: base roxa e recorte */
   background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+  overflow: hidden;
+  position: relative;
 }
 
+/* >>> NOVO: a imagem agora preenche toda a área (tipo banner) */
 .logo {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;            /* preenche a área toda */
+  object-position: center;
+  border-radius: 0;             /* para preencher sem bordas */
+  box-shadow: none;             /* remove sombra para ficar “faixa” */
   transition: transform 0.3s ease;
 }
 
+/* Mantém hover leve (opcional) */
 .logo:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 /* Container do botão WhatsApp */
@@ -67,6 +75,14 @@ body {
   justify-content: center;
   padding: 16px 20px 20px;
   background: var(--roxo-principal);
+
+  /* >>> NOVO: botão vai ficar por cima no canto direito */
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 0;
+  background: transparent;
+  z-index: 101;
 }
 
 /* Botões */
@@ -173,7 +189,7 @@ body {
   border-color: var(--roxo-principal);
 }
 
-/* ÁREA DE IMAGENS (CORRIGIDA) */
+/* ÁREA DE IMAGENS */
 .card__images {
   display: flex;
   flex-direction: column;
@@ -186,9 +202,12 @@ body {
   object-fit: cover;
   background: #eedaf6;
   display: block;
+
+  /* >>> NOVO: deixa claro que dá pra clicar */
+  cursor: zoom-in;
 }
 
-/* GALERIA DE MINIATURAS (CORRIGIDA) */
+/* GALERIA DE MINIATURAS */
 .galeria-wrapper {
   padding: 8px 10px 10px;
   background: #fff;
@@ -211,7 +230,7 @@ body {
   border-radius: 10px;
 }
 
-/* MINIATURA CORRIGIDA (botão com img dentro) */
+/* MINIATURA */
 .miniatura {
   border: 2px solid transparent;
   border-radius: 10px;
@@ -272,7 +291,7 @@ body {
   color: #5e2b70;
 }
 
-/* BOTÕES DE VERSÃO (Masculina/Jogador/Feminina) */
+/* BOTÕES DE VERSÃO */
 .variantes {
   display: flex;
   gap: 8px;
@@ -347,6 +366,59 @@ body {
   padding: 12px 0;
 }
 
+/* >>> NOVO: MODAL POP-UP */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.modal__content {
+  position: relative;
+  width: min(980px, calc(100% - 24px));
+  height: min(80vh, 720px);
+  margin: 6vh auto 0;
+  background: var(--branco);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+  padding: 10px;
+}
+
+.modal__close {
+  justify-self: end;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 2px solid var(--rosa-destaque);
+  background: #fff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.modal__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #f7ecfb;
+}
+
+.modal__caption {
+  font-size: 13px;
+  color: #5e2b70;
+  font-weight: 700;
+  padding: 4px 6px 8px;
+  text-align: center;
+}
+
 /* Responsividade completa */
 @media (max-width: 768px) {
   .wrap {
@@ -357,13 +429,14 @@ body {
     height: 100px;
     padding: 15px;
   }
-  
+
   .wpp-container {
-    padding: 12px 16px 16px;
+    top: 10px;
+    right: 10px;
   }
   
   .btn--wpp {
-    padding: 10px 20px;
+    padding: 10px 18px;
     font-size: 14px;
   }
   
@@ -393,6 +466,11 @@ body {
     flex-direction: column;
     gap: 4px;
     text-align: center;
+  }
+
+  .modal__content {
+    height: min(78vh, 640px);
+    margin-top: 8vh;
   }
 }
 
