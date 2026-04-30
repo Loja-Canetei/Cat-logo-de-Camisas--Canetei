@@ -45,24 +45,6 @@ const PRODUTOS = [
       tamanhos: ["PP", "P", "M", "G"],
     },
   },
-  
-  // ADICIONE MAIS PRODUTOS AQUI seguindo o mesmo padrão
-  /*
-  {
-    id: 2,
-    codigo: "CAN002", 
-    nome: "Real Madrid Home 2024",
-    categoria: "laliga",
-    liga: "La Liga",
-    masculino: {
-      imagens: [
-        "camisas/real-madrid-masc-frente.jpg",
-        "camisas/real-madrid-masc-costas.jpg"
-      ],
-      tamanhos: ["P", "M", "G", "GG"]
-    }
-  }
-  */
 ];
 
 // ============== FUNÇÕES AUXILIARES ===============
@@ -73,6 +55,11 @@ const $busca = document.getElementById("busca");
 const $filtro = document.getElementById("filtro");
 const $ano = document.getElementById("ano");
 const $wppTopo = document.getElementById("wppTopo");
+
+/* >>> NOVO: modal elements */
+const $modal = document.getElementById("modalCamisa");
+const $modalImg = document.getElementById("modalCamisaImg");
+const $modalCaption = document.getElementById("modalCamisaCaption");
 
 if ($ano) $ano.textContent = String(new Date().getFullYear());
 
@@ -136,6 +123,36 @@ function htmlGaleria(imagens = [], produtoId = "") {
         .join("")}
     </div>
   `;
+}
+
+/* >>> NOVO: helpers do modal */
+function openModalCamisa({ src, caption }) {
+  if (!$modal || !$modalImg) return;
+
+  $modal.classList.remove("hidden");
+  $modal.setAttribute("aria-hidden", "false");
+
+  $modalImg.src = src || IMG_FALLBACK;
+  $modalImg.alt = caption || "Camisa ampliada";
+
+  if ($modalCaption) {
+    $modalCaption.textContent = caption || "";
+  }
+
+  // trava scroll do body enquanto modal aberto
+  document.body.style.overflow = "hidden";
+}
+
+function closeModalCamisa() {
+  if (!$modal || !$modalImg) return;
+
+  $modal.classList.add("hidden");
+  $modal.setAttribute("aria-hidden", "true");
+
+  $modalImg.src = "";
+  if ($modalCaption) $modalCaption.textContent = "";
+
+  document.body.style.overflow = "";
 }
 
 // ============== RENDERIZAÇÃO ===============
@@ -212,6 +229,13 @@ function render(lista) {
 // ============== EVENTOS ===============
 
 document.addEventListener("click", e => {
+  // Fechar modal (botão ou backdrop)
+  const closeBtn = e.target.closest?.('[data-close="modal"]');
+  if (closeBtn) {
+    closeModalCamisa();
+    return;
+  }
+
   // Clique em miniatura
   const miniBtn = e.target.closest?.(".miniatura");
   if (miniBtn) {
@@ -224,6 +248,18 @@ document.addEventListener("click", e => {
       card.querySelectorAll(".miniatura").forEach(b => b.classList.remove("ativa"));
       miniBtn.classList.add("ativa");
     }
+    return;
+  }
+
+  // >>> NOVO: Clique na imagem principal abre modal
+  const mainImg = e.target.closest?.(".card__img");
+  if (mainImg) {
+    const card = mainImg.closest(".card");
+    const titulo = card?.querySelector(".card__title")?.textContent?.trim() || "Camisa";
+    const codigo = card?.querySelector(".codigo-atual")?.textContent?.trim() || "";
+    const caption = codigo ? `${titulo} — ${codigo}` : titulo;
+
+    openModalCamisa({ src: mainImg.currentSrc || mainImg.src, caption });
     return;
   }
 
@@ -255,8 +291,8 @@ document.addEventListener("click", e => {
 
     // Atualizar imagens
     const imagens = safeImagens(dados.imagens);
-    const mainImg = card.querySelector(".card__img");
-    if (mainImg) mainImg.src = imagens[0] || IMG_FALLBACK;
+    const mainImgEl = card.querySelector(".card__img");
+    if (mainImgEl) mainImgEl.src = imagens[0] || IMG_FALLBACK;
 
     const galeriaWrap = card.querySelector(".galeria-wrapper");
     if (galeriaWrap) galeriaWrap.innerHTML = htmlGaleria(imagens, idProduto);
@@ -268,6 +304,11 @@ document.addEventListener("click", e => {
 
     return;
   }
+});
+
+// ESC fecha modal
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeModalCamisa();
 });
 
 // Filtros
