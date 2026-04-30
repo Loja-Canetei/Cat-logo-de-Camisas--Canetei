@@ -23,7 +23,6 @@ const PRODUTOS = [
     categoria: "copa2026",
     liga: "Copa do Mundo 2026",
     masculino: {
-      // AJUSTE: coloque os nomes EXATOS dos seus arquivos
       imagens: [
         "camisas/brasil-azul-copa-frente-masc-torcedor.png",
         "camisas/brasil-azul-copa-costas-masc-torcedor.png",
@@ -32,7 +31,7 @@ const PRODUTOS = [
     },
     jogador: {
       imagens: [
-        "camisas/liverpool-jogador-frente.jpg", 
+        "camisas/liverpool-jogador-frente.jpg",
         "camisas/liverpool-jogador-costas.jpg"
       ],
       tamanhos: ["P", "M", "G", "GG"],
@@ -55,11 +54,6 @@ const $busca = document.getElementById("busca");
 const $filtro = document.getElementById("filtro");
 const $ano = document.getElementById("ano");
 const $wppTopo = document.getElementById("wppTopo");
-
-/* >>> NOVO: modal elements */
-const $modal = document.getElementById("modalCamisa");
-const $modalImg = document.getElementById("modalCamisaImg");
-const $modalCaption = document.getElementById("modalCamisaCaption");
 
 if ($ano) $ano.textContent = String(new Date().getFullYear());
 
@@ -125,34 +119,12 @@ function htmlGaleria(imagens = [], produtoId = "") {
   `;
 }
 
-/* >>> NOVO: helpers do modal */
-function openModalCamisa({ src, caption }) {
-  if (!$modal || !$modalImg) return;
-
-  $modal.classList.remove("hidden");
-  $modal.setAttribute("aria-hidden", "false");
-
-  $modalImg.src = src || IMG_FALLBACK;
-  $modalImg.alt = caption || "Camisa ampliada";
-
-  if ($modalCaption) {
-    $modalCaption.textContent = caption || "";
-  }
-
-  // trava scroll do body enquanto modal aberto
-  document.body.style.overflow = "hidden";
-}
-
-function closeModalCamisa() {
-  if (!$modal || !$modalImg) return;
-
-  $modal.classList.add("hidden");
-  $modal.setAttribute("aria-hidden", "true");
-
-  $modalImg.src = "";
-  if ($modalCaption) $modalCaption.textContent = "";
-
-  document.body.style.overflow = "";
+function abrirProdutoPage({ produtoId, versao, imgIndex }) {
+  const url = new URL("produto.html", window.location.href);
+  url.searchParams.set("id", String(produtoId));
+  url.searchParams.set("v", String(versao));
+  url.searchParams.set("img", String(imgIndex));
+  window.location.href = url.toString();
 }
 
 // ============== RENDERIZAÇÃO ===============
@@ -183,6 +155,7 @@ function render(lista) {
     const card = document.createElement("article");
     card.className = "card";
     card.dataset.id = String(p.id);
+    card.dataset.versao = String(versaoInicial || "");
 
     card.innerHTML = `
       <div class="card__images">
@@ -229,13 +202,6 @@ function render(lista) {
 // ============== EVENTOS ===============
 
 document.addEventListener("click", e => {
-  // Fechar modal (botão ou backdrop)
-  const closeBtn = e.target.closest?.('[data-close="modal"]');
-  if (closeBtn) {
-    closeModalCamisa();
-    return;
-  }
-
   // Clique em miniatura
   const miniBtn = e.target.closest?.(".miniatura");
   if (miniBtn) {
@@ -251,15 +217,23 @@ document.addEventListener("click", e => {
     return;
   }
 
-  // >>> NOVO: Clique na imagem principal abre modal
+  // Clique na imagem principal: abre página do produto
   const mainImg = e.target.closest?.(".card__img");
   if (mainImg) {
     const card = mainImg.closest(".card");
-    const titulo = card?.querySelector(".card__title")?.textContent?.trim() || "Camisa";
-    const codigo = card?.querySelector(".codigo-atual")?.textContent?.trim() || "";
-    const caption = codigo ? `${titulo} — ${codigo}` : titulo;
+    const produtoId = Number(card?.dataset?.id);
+    const versao = String(card?.dataset?.versao || getVersaoInicial(PRODUTOS.find(p => p.id === produtoId)) || "masculino");
 
-    openModalCamisa({ src: mainImg.currentSrc || mainImg.src, caption });
+    // descobre índice da imagem pela miniatura ativa
+    const ativa = card?.querySelector(".miniatura.ativa");
+    let imgIndex = 0;
+    if (ativa) {
+      const thumbs = Array.from(card.querySelectorAll(".miniatura"));
+      const idx = thumbs.indexOf(ativa);
+      imgIndex = idx >= 0 ? idx : 0;
+    }
+
+    if (produtoId) abrirProdutoPage({ produtoId, versao, imgIndex });
     return;
   }
 
@@ -276,6 +250,9 @@ document.addEventListener("click", e => {
     const versoes = getVersoes(produto);
     const label = versoes.find(v => v.key === versao)?.label || "Produto";
     const dados = produto[versao];
+
+    // guardar versão atual no card
+    card.dataset.versao = versao;
 
     // Atualizar botão ativo
     card.querySelectorAll(".btn-variante").forEach(b => b.classList.remove("ativa"));
@@ -304,11 +281,6 @@ document.addEventListener("click", e => {
 
     return;
   }
-});
-
-// ESC fecha modal
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") closeModalCamisa();
 });
 
 // Filtros
