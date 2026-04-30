@@ -26,9 +26,9 @@ const PRODUTOS = [
       imagens: [
      "camisas/brasil-amar-frente-masc.jpg",
         "camisas/brasil-amar-costas-masc.jpg",
-        "camisas/brasil-amar-gola-masc.jpg"
-        "camisas/brasil-amar-escudo-masc.jpg"
-        "camisas/brasil-amar-nike-masc.jpg"
+        "camisas/brasil-amar-gola-masc.png",
+        "camisas/brasil-amar-escudo-masc.png",
+        "camisas/brasil-amar-nike-masc.png",
         
       ],
       tamanhos: ["P", "M", "G", "GG"],
