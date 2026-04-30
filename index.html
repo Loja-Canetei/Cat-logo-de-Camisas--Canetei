@@ -8,13 +8,11 @@
 </head>
 
 <body>
-  <!-- Header com logo ocupando toda a área -->
   <header class="top">
     <div class="logo-container">
-      <img src="logo 2.0.jpg" alt="Canetei Logo" class="logo" />
+      <img src="logo 2.0.png" alt="Canetei Logo" class="logo" />
     </div>
 
-    <!-- Botão WhatsApp verde centralizado -->
     <div class="wpp-container">
       <a href="#" id="wppTopo" class="btn btn--wpp" target="_blank" rel="noopener">
         Falar no WhatsApp
@@ -22,17 +20,14 @@
     </div>
   </header>
 
-  <!-- Conteúdo principal -->
   <main class="wrap">
-    <!-- Hero Section -->
     <section class="hero">
       <h1>Camisas de Time</h1>
       <p>
-        Clique no botão "Consultar Preço" na camisa que deseja e conclua a compra no WhatsApp.
+        Clique em uma camisa para ver em tela cheia. Para comprar, clique em "Consultar Preço".
       </p>
     </section>
 
-    <!-- Controles de busca e filtro -->
     <div class="controls">
       <input
         type="text"
@@ -58,27 +53,13 @@
       </select>
     </div>
 
-    <!-- Grid de produtos -->
     <div class="grid" id="grid"></div>
 
-    <!-- Mensagem quando não há resultados -->
     <div class="empty hidden" id="vazio">
       <p>Nenhuma camisa encontrada. Tente buscar por outro termo.</p>
     </div>
   </main>
 
-  <!-- MODAL (POP-UP) PARA AMPLIAR A CAMISA -->
-  <div class="modal hidden" id="modalCamisa" aria-hidden="true">
-    <div class="modal__backdrop" data-close="modal"></div>
-
-    <div class="modal__content" role="dialog" aria-modal="true" aria-label="Visualização da camisa">
-      <button class="modal__close" type="button" data-close="modal" aria-label="Fechar">Fechar</button>
-      <img id="modalCamisaImg" class="modal__img" alt="Camisa ampliada" />
-      <div id="modalCamisaCaption" class="modal__caption"></div>
-    </div>
-  </div>
-
-  <!-- Footer -->
   <footer class="footer">
     <div class="wrap">
       <div class="footer__inner">
@@ -87,7 +68,6 @@
     </div>
   </footer>
 
-  <!-- IMPORTANTE: defer garante que o JS rode após o HTML carregar -->
   <script src="script.js" defer></script>
 </body>
 </html>
