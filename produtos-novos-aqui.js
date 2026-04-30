@@ -19,14 +19,17 @@ const PRODUTOS = [
   {
     id: 1,
     codigo: "CAN001",
-    nome: "Brasil Azul Copa",
+    nome: "Brasil Amarelo 2026 Copa",
     categoria: "copa2026",
     liga: "Copa do Mundo 2026",
     masculino: {
       imagens: [
-        "camisas/brasil-azul-copa-frente-masc-torcedor.png",
-        "camisas/brasil-azul-copa-costas-masc-torcedor.png",
-        "camisas/brasil-azul-copa-gola-masc-torcedor.png",
+     "camisas/brasil-amar-frente-masc.jpg",
+        "camisas/brasil-amar-costas-masc.jpg",
+        "camisas/brasil-amar-gola-masc.jpg",
+        "camisas/brasil-amar-escudo-masc.jpg",
+        "camisas/brasil-amar-nike-masc.jpg",
+        
       ],
       tamanhos: ["P", "M", "G", "GG"],
     },
