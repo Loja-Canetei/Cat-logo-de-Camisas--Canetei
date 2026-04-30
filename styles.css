@@ -25,7 +25,7 @@ body {
   padding: 16px;
 }
 
-/* Header com logo ocupando toda a área até a linha rosa */
+/* Header */
 .top {
   position: sticky;
   top: 0;
@@ -33,56 +33,37 @@ body {
   border-bottom: 4px solid var(--rosa-destaque);
   z-index: 100;
   padding: 0;
-
-  /* >>> NOVO: permite posicionar o botão no canto */
-  position: sticky;
 }
 
-/* Container da logo preenchendo toda a altura disponível */
+/* Banner otimizado para 1920x420 */
 .logo-container {
   width: 100%;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-
-  /* >>> NOVO: base roxa e recorte */
-  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
-  overflow: hidden;
+  height: 180px;
+  padding: 0;
+  background: var(--roxo-principal);
   position: relative;
+  overflow: hidden;
+  display: block;
 }
 
-/* >>> NOVO: a imagem agora preenche toda a área (tipo banner) */
 .logo {
   width: 100%;
   height: 100%;
-  object-fit: cover;            /* preenche a área toda */
+  object-fit: cover;
   object-position: center;
-  border-radius: 0;             /* para preencher sem bordas */
-  box-shadow: none;             /* remove sombra para ficar “faixa” */
-  transition: transform 0.3s ease;
+  display: block;
 }
 
-/* Mantém hover leve (opcional) */
-.logo:hover {
-  transform: scale(1.01);
-}
-
-/* Container do botão WhatsApp */
+/* Botão WhatsApp no canto direito */
 .wpp-container {
-  display: flex;
-  justify-content: center;
-  padding: 16px 20px 20px;
-  background: var(--roxo-principal);
-
-  /* >>> NOVO: botão vai ficar por cima no canto direito */
   position: absolute;
   top: 16px;
   right: 16px;
-  padding: 0;
-  background: transparent;
   z-index: 101;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* Botões */
@@ -113,7 +94,7 @@ body {
   filter: brightness(1.05);
 }
 
-/* Seção hero com textos visíveis */
+/* Hero */
 .hero {
   padding: 24px 0 20px;
   text-align: center;
@@ -165,7 +146,7 @@ body {
   box-shadow: 0 0 0 3px rgba(231,91,182,0.15);
 }
 
-/* Cards de produto */
+/* Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -189,7 +170,6 @@ body {
   border-color: var(--roxo-principal);
 }
 
-/* ÁREA DE IMAGENS */
 .card__images {
   display: flex;
   flex-direction: column;
@@ -202,12 +182,9 @@ body {
   object-fit: cover;
   background: #eedaf6;
   display: block;
-
-  /* >>> NOVO: deixa claro que dá pra clicar */
-  cursor: zoom-in;
+  cursor: pointer;
 }
 
-/* GALERIA DE MINIATURAS */
 .galeria-wrapper {
   padding: 8px 10px 10px;
   background: #fff;
@@ -230,7 +207,6 @@ body {
   border-radius: 10px;
 }
 
-/* MINIATURA */
 .miniatura {
   border: 2px solid transparent;
   border-radius: 10px;
@@ -291,7 +267,6 @@ body {
   color: #5e2b70;
 }
 
-/* BOTÕES DE VERSÃO */
 .variantes {
   display: flex;
   gap: 8px;
@@ -366,167 +341,234 @@ body {
   padding: 12px 0;
 }
 
-/* >>> NOVO: MODAL POP-UP */
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
+/* Página do produto (tela cheia) */
+.produto-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
 }
 
-.modal__backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
+.produto-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
 }
 
-.modal__content {
-  position: relative;
-  width: min(980px, calc(100% - 24px));
-  height: min(80vh, 720px);
-  margin: 6vh auto 0;
-  background: var(--branco);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 8px;
-  padding: 10px;
+.produto-topbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 0 14px;
+  flex-wrap: wrap;
 }
 
-.modal__close {
-  justify-self: end;
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 2px solid var(--rosa-destaque);
-  background: #fff;
+.produto-titulo {
+  color: #fff;
   font-weight: 900;
-  cursor: pointer;
-}
-
-.modal__img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #f7ecfb;
-}
-
-.modal__caption {
-  font-size: 13px;
-  color: #5e2b70;
-  font-weight: 700;
-  padding: 4px 6px 8px;
+  margin: 0;
+  font-size: 18px;
+  flex: 1;
   text-align: center;
 }
 
-/* Responsividade completa */
+.produto-viewer {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.produto-img {
+  width: 100%;
+  height: min(75vh, 800px);
+  object-fit: contain;
+  background: rgba(255,255,255,0.95);
+  display: block;
+}
+
+.produto-galeria {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  overflow-x: auto;
+  background: rgba(255,255,255,0.95);
+  border-top: 2px solid var(--rosa-destaque);
+  justify-content: center;
+}
+
+.produto-thumb {
+  border: 2px solid transparent;
+  padding: 2px;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: all 0.2s ease;
+}
+
+.produto-thumb img {
+  width: 90px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.produto-thumb:hover {
+  border-color: var(--rosa-destaque);
+}
+
+.produto-thumb.ativa {
+  border-color: var(--roxo-principal);
+  transform: scale(1.05);
+}
+
+.produto-acoes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 14px;
+  justify-content: center;
+  background: rgba(255,255,255,0.95);
+}
+
+.btn--sec {
+  background: #fff;
+  color: #20112d;
+  border: 2px solid var(--rosa-destaque);
+  box-shadow: none;
+  font-size: 14px;
+}
+
+.btn--sec:hover {
+  background: var(--cinza-claro);
+  border-color: var(--roxo-principal);
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
-  .wrap {
-    padding: 12px;
-  }
-  
-  .logo-container {
-    height: 100px;
-    padding: 15px;
+  .wrap { 
+    padding: 12px; 
   }
 
-  .wpp-container {
-    top: 10px;
-    right: 10px;
+  .logo-container { 
+    height: 140px; 
   }
   
-  .btn--wpp {
-    padding: 10px 18px;
-    font-size: 14px;
+  .wpp-container { 
+    top: 10px; 
+    right: 10px; 
+  }
+
+  .btn--wpp { 
+    padding: 9px 16px; 
+    font-size: 14px; 
+  }
+
+  .hero h1 { 
+    font-size: 26px; 
   }
   
-  .hero h1 {
-    font-size: 26px;
+  .hero p { 
+    font-size: 16px; 
+  }
+
+  .controls { 
+    grid-template-columns: 1fr; 
+    gap: 8px; 
+  }
+
+  .grid { 
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    gap: 12px; 
   }
   
-  .hero p {
-    font-size: 16px;
+  .card__img { 
+    height: 160px; 
+  }
+
+  .footer__inner { 
+    flex-direction: column; 
+    gap: 4px; 
+    text-align: center; 
+  }
+
+  .produto-img { 
+    height: min(68vh, 600px); 
   }
   
-  .controls {
-    grid-template-columns: 1fr;
+  .produto-thumb img { 
+    width: 75px; 
+    height: 60px; 
+  }
+
+  .produto-topbar {
+    flex-direction: column;
     gap: 8px;
   }
-  
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-  }
-  
-  .card__img {
-    height: 160px;
-  }
-  
-  .footer__inner {
-    flex-direction: column;
-    gap: 4px;
-    text-align: center;
-  }
 
-  .modal__content {
-    height: min(78vh, 640px);
-    margin-top: 8vh;
+  .produto-titulo {
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
-  .logo-container {
-    height: 80px;
-    padding: 12px;
+  .logo-container { 
+    height: 120px; 
+  }
+
+  .hero h1 { 
+    font-size: 22px; 
   }
   
-  .hero h1 {
-    font-size: 22px;
+  .hero p { 
+    font-size: 15px; 
+  }
+
+  .grid { 
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+    gap: 10px; 
   }
   
-  .hero p {
-    font-size: 15px;
+  .card__img { 
+    height: 140px; 
   }
-  
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-  }
-  
-  .card__img {
-    height: 140px;
-  }
-  
+
   .card__body {
     padding: 10px;
   }
-  
+
   .btn-variante {
     padding: 7px 10px;
     font-size: 11px;
   }
-  
+
   .miniatura img {
     width: 50px;
     height: 40px;
   }
-  
+
   .galeria-wrapper {
     padding: 7px 8px 9px;
+  }
+
+  .produto-thumb img { 
+    width: 65px; 
+    height: 50px; 
   }
 }
 
 @media (min-width: 1200px) {
-  .logo-container {
-    height: 140px;
-    padding: 25px;
+  .logo-container { 
+    height: 200px; 
+  }
+
+  .hero h1 { 
+    font-size: 36px; 
   }
   
-  .hero h1 {
-    font-size: 36px;
-  }
-  
-  .hero p {
-    font-size: 20px;
+  .hero p { 
+    font-size: 20px; 
   }
 }
