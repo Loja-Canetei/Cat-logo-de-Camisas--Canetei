@@ -26,6 +26,7 @@ const PRODUTOS = [
       imagens: [
         "camisas/brasil-azul-copa-frente-masc-torcedor.png",
         "camisas/brasil-azul-copa-costas-masc-torcedor.png",
+        "camisas/brasil-azul-copa-gola-masc-torcedor.png",
       ],
       tamanhos: ["P", "M", "G", "GG"],
     },
@@ -38,10 +39,11 @@ const PRODUTOS = [
     },
     feminino: {
       imagens: [
-        "camisas/liverpool-fem-frente.jpg",
-        "camisas/liverpool-fem-costas.jpg"
+        "camisas/brasil-azul-copa-frente-fem-torcedor.png",
+         "camisas/brasil-azul-copa-costas-fem-torcedor.png",
+         "camisas/brasil-azul-copa-gola-fem-torcedor.png",
       ],
-      tamanhos: ["PP", "P", "M", "G"],
+      tamanhos: ["PP", "P", "M", "G", "GG"],
     },
   },
   
