@@ -16,7 +16,7 @@
      ========================================================= */
   --wm-big-left: 1px;
   --wm-big-bottom: 1px;
-  --wm-big-size: 220px;   /* aumenta/diminui aqui */
+  --wm-big-size: 220px;   /* tamanho da marca na foto grande */
   --wm-big-opacity: 1;    /* 1 = 100% visível */
 
   --wm-thumb-enabled: 0;  /* 0 = NÃO mostra nas miniaturas | 1 = mostra */
@@ -26,19 +26,13 @@
   --wm-thumb-opacity: 0.45;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
   color: #20112d;
-  background: linear-gradient(
-    135deg,
-    var(--roxo-principal) 0%,
-    var(--roxo-escuro) 100%
-  );
+  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
   min-height: 100vh;
 }
 
@@ -222,9 +216,7 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-.galeria::-webkit-scrollbar {
-  height: 6px;
-}
+.galeria::-webkit-scrollbar { height: 6px; }
 
 .galeria::-webkit-scrollbar-thumb {
   background: rgba(107, 44, 145, 0.35);
@@ -317,11 +309,7 @@ body {
 }
 
 .btn-variante.ativa {
-  background: linear-gradient(
-    135deg,
-    var(--roxo-principal) 0%,
-    var(--roxo-escuro) 100%
-  );
+  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
   color: var(--branco);
   border-color: var(--roxo-principal);
 }
@@ -350,9 +338,7 @@ body {
   font-weight: 600;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 .footer {
   margin-top: 24px;
@@ -386,39 +372,35 @@ body {
   object-fit: cover;
 }
 
-/* FOTO GRANDE: maior, 100% visível, quase colada (5px) */
+/* PADRÃO (cards/listas): usa as configs "big" */
 .wm-wrap::after {
   content: "";
   position: absolute;
-
-  bottom: var(--wm-big-bottom);
   left: var(--wm-big-left);
+  bottom: var(--wm-big-bottom);
+
+  width: var(--wm-big-size);
+  height: var(--wm-big-size);
 
   background-image: url("logo-marca-dagua.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 
-  width: var(--wm-big-size);
-  height: var(--wm-big-size);
-
   opacity: var(--wm-big-opacity);
-
-  /* você pediu 100% visível e simples; removi sombra */
   filter: none;
-
   pointer-events: none;
   z-index: 10;
+
+  top: auto;
+  right: auto;
+  transform: none;
 }
 
 /* ===== PÁGINA DO PRODUTO (REESCRITA/ISOLADA) ===== */
 .produto-page {
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    var(--roxo-principal) 0%,
-    var(--roxo-escuro) 100%
-  );
+  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
 }
 
 .produto-wrap {
@@ -445,7 +427,6 @@ body {
   text-align: center;
 }
 
-/* Viewer NÃO pode ser grid aqui */
 .produto-viewer {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -464,12 +445,12 @@ body {
 .produto-img {
   width: 100%;
   height: min(75vh, 800px);
-  object-fit: contain;
+  object-fit: contain; /* importante: não corta a imagem */
   background: rgba(255, 255, 255, 0.97);
   display: block;
 }
 
-/* ===== GALERIA DO PRODUTO — EXATAMENTE COMO ERA (FAIXA BAIXA) ===== */
+/* ===== GALERIA DO PRODUTO — FAIXA BAIXA ===== */
 .produto-galeria {
   background: transparent;
   border-top: 2px solid var(--rosa-destaque);
@@ -490,9 +471,8 @@ body {
   line-height: 1;
 }
 
-.produto-galeria::-webkit-scrollbar {
-  height: 6px;
-}
+.produto-galeria::-webkit-scrollbar { height: 6px; }
+
 .produto-galeria::-webkit-scrollbar-thumb {
   background: rgba(107, 44, 145, 0.22);
   border-radius: 10px;
@@ -544,7 +524,7 @@ body {
   transform: scale(1.02);
 }
 
-/* ===== CORREÇÃO CRÍTICA: wm-wrap em thumb NÃO pode ser width:100% ===== */
+/* Thumb com wm-wrap não pode ser width:100% */
 .produto-thumb.wm-wrap {
   width: auto;
   display: inline-flex;
@@ -552,13 +532,12 @@ body {
   line-height: 0;
 }
 
-/* MINIATURAS: DESLIGADO por padrão (edita no :root --wm-thumb-enabled) */
+/* MINIATURAS: controla por variável (0 = off, 1 = on) */
 .produto-thumb.wm-wrap::after {
   content: "";
   position: absolute;
-
-  bottom: var(--wm-thumb-bottom);
   left: var(--wm-thumb-left);
+  bottom: var(--wm-thumb-bottom);
 
   width: var(--wm-thumb-size);
   height: var(--wm-thumb-size);
@@ -568,57 +547,33 @@ body {
   background-position: center;
   background-size: contain;
 
-  opacity: var(--wm-thumb-opacity);
-
+  opacity: calc(var(--wm-thumb-enabled) * var(--wm-thumb-opacity));
   pointer-events: none;
   z-index: 10;
 
-  /* CHAVE: 0 = some, 1 = aparece */
-  display: none;
-  display: block;
-  display: inline-block;
-  display: flex;
-}
-
-/* A linha acima com vários display NÃO é ideal; então fazemos do jeito certo:
-   controla com opacity + pointer-events e "visibilidade".
-   (mantém simples: mude só o --wm-thumb-enabled no :root) */
-.produto-thumb.wm-wrap::after {
-  opacity: calc(var(--wm-thumb-enabled) * var(--wm-thumb-opacity));
+  /* quando disabled=0, some de verdade */
   visibility: hidden;
 }
 
-:root[style] {}
-
-/* Regras de exibição (seguras e simples) */
-.produto-thumb.wm-wrap::after { visibility: hidden; }
-:root {}
-
-/* Quando habilitar = 1, aparece */
-html:root {
-  /* nada aqui, só pra manter compat */
+.produto-thumb.wm-wrap[style],
+.produto-thumb.wm-wrap,
+.produto-galeria {
+  /* (sem alterações; bloco vazio removido) */
 }
+
+/* Mostra quando enabled=1 */
 :root {
-  /* nada aqui */
+  /* nada */
+}
+html {
+  /* nada */
+}
+/* Regra simples: quando enabled=1 a opacity fica > 0; só precisamos liberar visibilidade */
+.produto-thumb.wm-wrap::after {
+  visibility: visible;
 }
 
-/* Solução direta e limpa: se enabled=0 => content:none; se enabled=1 => content:"" 
-   (CSS puro não compara variável, então deixo o padrão DESLIGADO via content:none,
-    e se quiser ligar, você troca manualmente 1 linha abaixo) */
-
-/* PADRÃO: não mostra em miniaturas */
-.produto-thumb.wm-wrap::after{
-  content: none;
-}
-
-/* >>> SE UM DIA você quiser mostrar de novo nas miniaturas,
-       comente o bloco acima (content:none) e descomente este aqui:
-.produto-thumb.wm-wrap::after{
-  content: "";
-}
-*/
-
-/* Botões de navegação: SEM FUNDO (como era) */
+/* Botões de navegação: SEM FUNDO */
 .produto-acoes {
   display: flex;
   gap: 10px;
@@ -644,9 +599,7 @@ html:root {
   padding: 20px;
 }
 
-.produto-descricao {
-  margin-bottom: 24px;
-}
+.produto-descricao { margin-bottom: 24px; }
 
 .produto-descricao h2 {
   color: #fff;
@@ -712,78 +665,30 @@ html:root {
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .wrap {
-    padding: 12px;
-  }
-  .logo-container {
-    height: 140px;
-  }
-  .wpp-container {
-    top: 10px;
-    right: 10px;
-  }
-  .btn--wpp {
-    padding: 9px 16px;
-    font-size: 14px;
-  }
-  .hero h1 {
-    font-size: 26px;
-  }
-  .hero p {
-    font-size: 16px;
-  }
-  .controls {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-  }
-  .card__img {
-    height: 160px;
-  }
-  .footer__inner {
-    flex-direction: column;
-    gap: 4px;
-    text-align: center;
-  }
+  .wrap { padding: 12px; }
+  .logo-container { height: 140px; }
+  .wpp-container { top: 10px; right: 10px; }
+  .btn--wpp { padding: 9px 16px; font-size: 14px; }
+  .hero h1 { font-size: 26px; }
+  .hero p { font-size: 16px; }
+  .controls { grid-template-columns: 1fr; gap: 8px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .card__img { height: 160px; }
+  .footer__inner { flex-direction: column; gap: 4px; text-align: center; }
 
-  .produto-img {
-    height: min(68vh, 600px);
-  }
+  .produto-img { height: min(68vh, 600px); }
+  .produto-thumb img { width: 50px; height: 40px; }
 
-  .produto-thumb img {
-    width: 50px;
-    height: 40px;
-  }
+  .produto-topbar { flex-direction: column; gap: 8px; }
+  .produto-titulo { font-size: 16px; }
 
-  .produto-topbar {
-    flex-direction: column;
-    gap: 8px;
-  }
-  .produto-titulo {
-    font-size: 16px;
-  }
+  .produto-info { padding: 16px; }
+  .produto-descricao h2 { font-size: 18px; }
+  .produto-descricao p { font-size: 15px; }
+  .produto-detalhes { grid-template-columns: 1fr; gap: 10px; }
+  .detalhe-item { padding: 10px 14px; }
 
-  .produto-info {
-    padding: 16px;
-  }
-  .produto-descricao h2 {
-    font-size: 18px;
-  }
-  .produto-descricao p {
-    font-size: 15px;
-  }
-  .produto-detalhes {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  .detalhe-item {
-    padding: 10px 14px;
-  }
-
-  /* No mobile, mantenho proporcional via variável (mais simples pra você testar) */
+  /* no mobile: limita o tamanho da marca */
   .wm-wrap::after {
     width: min(var(--wm-big-size), 160px);
     height: min(var(--wm-big-size), 160px);
@@ -791,54 +696,22 @@ html:root {
 }
 
 @media (max-width: 480px) {
-  .logo-container {
-    height: 120px;
-  }
-  .hero h1 {
-    font-size: 22px;
-  }
-  .hero p {
-    font-size: 15px;
-  }
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-  }
-  .card__img {
-    height: 140px;
-  }
-  .card__body {
-    padding: 10px;
-  }
-  .btn-variante {
-    padding: 7px 10px;
-    font-size: 11px;
-  }
-  .miniatura img {
-    width: 50px;
-    height: 40px;
-  }
-  .galeria-wrapper {
-    padding: 7px 8px 9px;
-  }
+  .logo-container { height: 120px; }
+  .hero h1 { font-size: 22px; }
+  .hero p { font-size: 15px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .card__img { height: 140px; }
+  .card__body { padding: 10px; }
+  .btn-variante { padding: 7px 10px; font-size: 11px; }
+  .miniatura img { width: 50px; height: 40px; }
+  .galeria-wrapper { padding: 7px 8px 9px; }
 
-  .produto-thumb img {
-    width: 46px;
-    height: 36px;
-  }
+  .produto-thumb img { width: 46px; height: 36px; }
 
-  .produto-info {
-    padding: 14px;
-  }
+  .produto-info { padding: 14px; }
 
-  .detalhe-item {
-    flex-direction: column;
-    text-align: center;
-    gap: 6px;
-  }
-  .detalhe-item span:last-child {
-    text-align: center;
-  }
+  .detalhe-item { flex-direction: column; text-align: center; gap: 6px; }
+  .detalhe-item span:last-child { text-align: center; }
 
   .wm-wrap::after {
     width: min(var(--wm-big-size), 140px);
@@ -847,17 +720,11 @@ html:root {
 }
 
 @media (min-width: 1200px) {
-  .logo-container {
-    height: 200px;
-  }
-  .hero h1 {
-    font-size: 36px;
-  }
-  .hero p {
-    font-size: 20px;
-  }
+  .logo-container { height: 200px; }
+  .hero h1 { font-size: 36px; }
+  .hero p { font-size: 20px; }
 
-  /* no desktop grande, permite crescer um pouco */
+  /* no desktop grande: permite crescer um pouco */
   .wm-wrap::after {
     width: max(var(--wm-big-size), 240px);
     height: max(var(--wm-big-size), 240px);
