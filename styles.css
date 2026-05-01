@@ -341,51 +341,57 @@ body {
   padding: 12px 0;
 }
 
-/* ===== MARCA D'ÁGUA (CANTO INFERIOR ESQUERDO DA IMAGEM) ===== */
+/* ============================================================
+   MARCA D'ÁGUA — CORRIGIDO PARA FICAR 100% DENTRO DA FOTO
+   ============================================================ */
 .wm-wrap {
   position: relative;
-  display: inline-block; /* Importante: faz o wrapper ter exatamente o tamanho da imagem */
+  display: inline-block;   /* wrapper acompanha o tamanho real do conteúdo */
   width: 100%;
+  line-height: 0;          /* remove “respiro” de linha (bug comum com img inline) */
+  overflow: hidden;        /* garante que a marca NÃO apareça fora da imagem */
 }
 
+/* IMPORTANTE:
+   Não forçar height:100% aqui, porque isso pode descolar o wrapper do tamanho real da imagem
+   e causar “vazamento” para áreas brancas do layout.
+*/
 .wm-wrap > img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* ou contain, dependendo do seu layout */
+  height: auto;
+  vertical-align: top;
+  object-fit: cover; /* mantém igual ao seu uso nos cards */
 }
 
-/* Overlay com a logo - DENTRO da imagem */
+/* Overlay da logo */
 .wm-wrap::after {
   content: "";
   position: absolute;
-  bottom: 12px;  /* Distância da borda inferior da IMAGEM */
-  left: 12px;    /* Distância da borda esquerda da IMAGEM */
-  
-  /* COLOQUE AQUI O NOME DO SEU ARQUIVO DE LOGO */
+  left: 12px;
+  bottom: 12px;
+  width: 80px;
+  height: 80px;
+
   background-image: url("logo-marca-dagua.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  
-  /* Tamanho da marca d'água */
-  width: 80px;   /* Largura fixa */
-  height: 80px;  /* Altura fixa */
-  
-  opacity: 0.8;  /* 80% visível */
+
+  opacity: 0.8;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
-  pointer-events: none; /* Não interfere no clique da imagem */
+  pointer-events: none;
+  z-index: 10;
 }
 
 /* Marca d'água menor nas miniaturas da galeria do produto */
 .produto-thumb.wm-wrap::after {
-  bottom: 6px;
   left: 6px;
+  bottom: 6px;
   width: 40px;
   height: 40px;
   opacity: 0.45;
 }
-
 
 /* Página do produto (tela cheia) */
 .produto-page {
