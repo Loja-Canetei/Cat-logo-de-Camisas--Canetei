@@ -5,12 +5,11 @@ const $wpp = document.getElementById("produtoWpp");
 const $prev = document.getElementById("prevImg");
 const $next = document.getElementById("nextImg");
 
-// Novos elementos para descrição
+// Elementos para descrição (sem preço)
 const $descTexto = document.getElementById("produtoDescTexto");
 const $codigo = document.getElementById("produtoCodigo");
 const $liga = document.getElementById("produtoLiga");
 const $material = document.getElementById("produtoMaterial");
-const $preco = document.getElementById("produtoPreco");
 const $tamanhos = document.getElementById("produtoTamanhos");
 
 const params = new URLSearchParams(window.location.search);
@@ -31,7 +30,6 @@ function render() {
     if ($codigo) $codigo.textContent = "---";
     if ($liga) $liga.textContent = "---";
     if ($material) $material.textContent = "---";
-    if ($preco) $preco.textContent = "Consulte";
     if ($tamanhos) $tamanhos.textContent = "---";
     
     return;
@@ -67,7 +65,7 @@ function render() {
     `).join("");
   }
 
-  // Atualizar descrição e detalhes
+  // Atualizar descrição e detalhes (sem preço)
   if ($descTexto) {
     $descTexto.textContent = produto.descricao || "Descrição não disponível.";
   }
@@ -82,10 +80,6 @@ function render() {
   
   if ($material) {
     $material.textContent = produto.material || "Consulte";
-  }
-  
-  if ($preco) {
-    $preco.textContent = produto.preco_ref || "Consulte";
   }
   
   if ($tamanhos) {
