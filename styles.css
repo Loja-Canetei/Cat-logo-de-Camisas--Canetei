@@ -341,6 +341,39 @@ body {
   padding: 12px 0;
 }
 
+/* ===== MARCA D'ÁGUA (OVERLAY) ===== */
+.wm-wrap {
+  position: relative;
+}
+
+.wm-wrap > img {
+  display: block;
+}
+
+/* Overlay com a logo - AJUSTE O CAMINHO DA SUA LOGO AQUI */
+.wm-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  /* COLOQUE AQUI O NOME DO SEU ARQUIVO DE LOGO */
+  background-image: url("logo-marca-dagua.png");
+  background-repeat: no-repeat;
+  background-position: right 18px bottom 18px;
+  background-size: clamp(80px, 18vw, 160px);
+
+  opacity: 0.25; /* ajuste aqui (0.15 a 0.35 costuma ficar bom) */
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+}
+
+/* Marca d'água menor nas miniaturas da galeria do produto */
+.produto-thumb.wm-wrap::after {
+  background-position: right 8px bottom 8px;
+  background-size: clamp(40px, 10vw, 70px);
+  opacity: 0.22;
+}
+
 /* Página do produto (tela cheia) */
 .produto-page {
   min-height: 100vh;
@@ -433,6 +466,69 @@ body {
   background: rgba(255,255,255,0.95);
 }
 
+/* ===== SEÇÃO DE DESCRIÇÃO (NOVO) ===== */
+.produto-info {
+  margin-top: 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.produto-descricao {
+  margin-bottom: 24px;
+}
+
+.produto-descricao h2 {
+  color: #fff;
+  font-weight: 900;
+  margin: 0 0 12px;
+  font-size: 20px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.produto-descricao p {
+  color: rgba(255,255,255,0.95);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.produto-detalhes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.detalhe-item {
+  background: rgba(255,255,255,0.1);
+  padding: 12px 16px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.detalhe-label {
+  color: var(--rosa-destaque);
+  font-weight: 700;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.detalhe-item span:last-child {
+  color: #fff;
+  font-weight: 600;
+  text-align: right;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 .btn--sec {
   background: #fff;
   color: #20112d;
@@ -511,6 +607,27 @@ body {
   .produto-titulo {
     font-size: 16px;
   }
+
+  .produto-info {
+    padding: 16px;
+  }
+
+  .produto-descricao h2 {
+    font-size: 18px;
+  }
+
+  .produto-descricao p {
+    font-size: 15px;
+  }
+
+  .produto-detalhes {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .detalhe-item {
+    padding: 10px 14px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -556,6 +673,20 @@ body {
   .produto-thumb img { 
     width: 65px; 
     height: 50px; 
+  }
+
+  .produto-info {
+    padding: 14px;
+  }
+
+  .detalhe-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+
+  .detalhe-item span:last-child {
+    text-align: center;
   }
 }
 
