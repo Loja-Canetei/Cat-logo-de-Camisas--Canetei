@@ -779,3 +779,127 @@ body {
     opacity: 0.76;
   }
 }
+/* =========================================================
+   FIX DEFINITIVO: MINIATURAS + BARRA (VOLTA AO "COMO ERA")
+   Cole este bloco NO FINAL do styles.css
+   ========================================================= */
+
+/* 1) garante que nada em grid/linhas está esticando o viewer */
+.produto-viewer{
+  display: block !important;
+}
+
+/* 2) galeria: faixa baixa, sem “caixão branco” */
+.produto-galeria{
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important; /* como era: centralizado */
+  gap: 12px !important;
+
+  padding: 10px 12px !important;
+  margin: 0 !important;
+
+  background: transparent !important; /* remove o bloco branco */
+  border-top: 2px solid var(--rosa-destaque) !important;
+  box-shadow: none !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+
+  scroll-snap-type: none !important;
+  line-height: 1 !important;
+}
+
+/* scrollbar discreta (não cria “barra gigante”) */
+.produto-galeria::-webkit-scrollbar{ height: 6px !important; }
+.produto-galeria::-webkit-scrollbar-thumb{
+  background: rgba(107, 44, 145, 0.22) !important;
+  border-radius: 10px !important;
+}
+
+/* 3) thumbs: tamanho fixo, não estica, não herda estilos de .btn */
+.produto-thumb{
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  padding: 2px !important;
+  margin: 0 !important;
+
+  border: 2px solid transparent !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+
+  cursor: pointer !important;
+  transform: none !important;
+}
+
+.produto-thumb img{
+  width: 56px !important;   /* como sua galeria do card (miniatura) */
+  height: 44px !important;  /* como sua galeria do card (miniatura) */
+  object-fit: cover !important;
+  display: block !important;
+  border-radius: 10px !important;
+  background: #eedaf6 !important;
+}
+
+.produto-thumb:hover{
+  border-color: var(--rosa-destaque) !important;
+}
+
+.produto-thumb.ativa{
+  border-color: var(--roxo-principal) !important;
+  transform: scale(1.02) !important; /* igual ao “antes”, bem leve */
+}
+
+/* 4) ações: sem fundo, sem altura sobrando */
+.produto-acoes{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 10px !important;
+
+  padding: 12px 14px !important;
+  margin: 0 !important;
+
+  background: transparent !important;
+  border-top: none !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+/* 5) CORREÇÃO PRINCIPAL: wm-wrap NÃO pode ser width:100% em miniatura
+      (isso é o que mais costuma gerar “faixa”/bloco estranho) */
+.produto-thumb.wm-wrap{
+  width: auto !important;
+  display: inline-flex !important;
+  line-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* garante que o overlay da marca d’água não empurre nada */
+.produto-thumb.wm-wrap::after{
+  content: "" !important;
+  position: absolute !important;
+  bottom: 6px !important;
+  left: 6px !important;
+  width: 32px !important;
+  height: 32px !important;
+  background-image: url("logo-marca-dagua.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  opacity: 0.45 !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+}
+
+/* mantém o wm-wrap original para a imagem grande (não mexe) */
+
