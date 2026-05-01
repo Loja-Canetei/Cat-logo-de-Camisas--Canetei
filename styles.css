@@ -436,27 +436,27 @@ body {
   display: block;
 }
 
-/* ===== GALERIA: carrossel horizontal (como no 1º print) ===== */
+/* ===== GALERIA DO PRODUTO: Carrossel horizontal (estilo print 1) ===== */
 .produto-galeria {
   display: flex;
   gap: 8px;
   align-items: center;
   padding: 8px 12px 10px;
-  background: rgba(255, 255, 255, 0.92);  /* menos “borrão” */
+  background: rgba(255,255,255,0.93);
   border-top: 2px solid var(--rosa-destaque);
-
-  overflow-x: auto;        /* carrossel/rolagem horizontal */
+  max-width: 100%;
+  overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity; /* rolando fica “grudado” */
+  scroll-snap-type: x proximity;
+  box-shadow: none;
 }
 
 .produto-galeria::-webkit-scrollbar {
   height: 6px;
 }
-
 .produto-galeria::-webkit-scrollbar-thumb {
-  background: rgba(107, 44, 145, 0.35);
+  background: rgba(107, 44, 145, 0.22);
   border-radius: 10px;
 }
 
@@ -466,9 +466,9 @@ body {
   border-radius: 12px;
   background: transparent;
   cursor: pointer;
-  flex: 0 0 auto;                /* impede quebra de linha */
+  flex: 0 0 auto;
   transition: all 0.2s ease;
-  scroll-snap-align: start;      /* alinha item ao parar a rolagem */
+  scroll-snap-align: start;
 }
 
 .produto-thumb img {
@@ -489,15 +489,16 @@ body {
   transform: scale(1.05);
 }
 
-/* Ações (anterior/próxima) */
+/* Botões de navegação */
 .produto-acoes {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   padding: 12px 14px;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.92);  /* igual à galeria, sem “faixa” forte */
-  border-top: 1px solid rgba(231, 91, 182, 0.35);
+  background: transparent;
+  border-top: none;
+  box-shadow: none;
 }
 
 /* ===== SEÇÃO DE DESCRIÇÃO ===== */
