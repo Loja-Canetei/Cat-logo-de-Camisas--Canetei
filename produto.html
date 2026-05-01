@@ -16,16 +16,51 @@
     </div>
 
     <section class="produto-viewer">
-      <img id="produtoImg" class="produto-img" alt="Camisa" />
+      <!-- Wrapper para marca d'água -->
+      <div class="wm-wrap">
+        <img id="produtoImg" class="produto-img" alt="Camisa" />
+      </div>
+      
       <div id="produtoGaleria" class="produto-galeria" aria-label="Miniaturas"></div>
+      
       <div class="produto-acoes">
         <button class="btn btn--sec" id="prevImg" type="button">← Anterior</button>
         <button class="btn btn--sec" id="nextImg" type="button">Próxima →</button>
       </div>
     </section>
+
+    <!-- SEÇÃO DE DESCRIÇÃO (NOVO) -->
+    <section class="produto-info" id="produtoInfo">
+      <div class="produto-descricao">
+        <h2>Descrição do Produto</h2>
+        <p id="produtoDescTexto">Carregando...</p>
+      </div>
+      
+      <div class="produto-detalhes">
+        <div class="detalhe-item">
+          <span class="detalhe-label">Código:</span>
+          <span id="produtoCodigo">---</span>
+        </div>
+        <div class="detalhe-item">
+          <span class="detalhe-label">Liga/Categoria:</span>
+          <span id="produtoLiga">---</span>
+        </div>
+        <div class="detalhe-item">
+          <span class="detalhe-label">Material:</span>
+          <span id="produtoMaterial">---</span>
+        </div>
+        <div class="detalhe-item">
+          <span class="detalhe-label">Preço Ref.:</span>
+          <span id="produtoPreco">Consulte</span>
+        </div>
+        <div class="detalhe-item">
+          <span class="detalhe-label">Tamanhos:</span>
+          <span id="produtoTamanhos">---</span>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- RENOMEADO AQUI -->
   <script src="produtos-novos-aqui.js" defer></script>
   <script src="produto.js" defer></script>
 </body>
