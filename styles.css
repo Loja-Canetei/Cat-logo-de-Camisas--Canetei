@@ -7,15 +7,19 @@
   --verde-wpp: #16a34a;
 }
 
-* { 
-  box-sizing: border-box; 
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
   color: #20112d;
-  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--roxo-principal) 0%,
+    var(--roxo-escuro) 100%
+  );
   min-height: 100vh;
 }
 
@@ -143,7 +147,7 @@ body {
 
 .input:focus {
   border-color: var(--roxo-principal);
-  box-shadow: 0 0 0 3px rgba(231,91,182,0.15);
+  box-shadow: 0 0 0 3px rgba(231, 91, 182, 0.15);
 }
 
 /* Grid */
@@ -158,7 +162,7 @@ body {
   border: 2px solid var(--rosa-destaque);
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(107,44,145,0.08);
+  box-shadow: 0 8px 24px rgba(107, 44, 145, 0.08);
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
@@ -166,7 +170,7 @@ body {
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(231,91,182,0.12);
+  box-shadow: 0 15px 35px rgba(231, 91, 182, 0.12);
   border-color: var(--roxo-principal);
 }
 
@@ -202,6 +206,7 @@ body {
 .galeria::-webkit-scrollbar {
   height: 6px;
 }
+
 .galeria::-webkit-scrollbar-thumb {
   background: rgba(107, 44, 145, 0.35);
   border-radius: 10px;
@@ -247,7 +252,7 @@ body {
   font-weight: 900;
   color: var(--rosa-destaque);
   background: #f9e9f5;
-  padding: 4px 8px;
+  padding:  4px 8px;
   border-radius: 12px;
   text-align: center;
   letter-spacing: 0.5px;
@@ -260,7 +265,7 @@ body {
 
 .card__meta {
   font-size: 13px;
-  opacity: .9;
+  opacity: 0.9;
   display: flex;
   justify-content: space-between;
   gap: 8px;
@@ -293,7 +298,11 @@ body {
 }
 
 .btn-variante.ativa {
-  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--roxo-principal) 0%,
+    var(--roxo-escuro) 100%
+  );
   color: var(--branco);
   border-color: var(--roxo-principal);
 }
@@ -322,8 +331,8 @@ body {
   font-weight: 600;
 }
 
-.hidden { 
-  display: none; 
+.hidden {
+  display: none;
 }
 
 .footer {
@@ -346,9 +355,8 @@ body {
   position: relative;
   display: inline-block;
   width: 100%;
-
-  line-height: 0;     /* remove “espaço fantasma” */
-  overflow: hidden;   /* corta qualquer coisa fora da área da imagem */
+  line-height: 0;
+  overflow: hidden;
 }
 
 /* não force height:100% para evitar wrapper maior que a foto */
@@ -360,23 +368,23 @@ body {
   object-fit: cover;
 }
 
-/* Overlay com a logo - DENTRO da imagem */
+/* Overlay com a logo - DENTRO da imagem (MAIOR) */
 .wm-wrap::after {
   content: "";
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  bottom: 16px;
+  left: 16px;
 
   background-image: url("logo-marca-dagua.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 
-  width: 80px;
-  height: 80px;
+  width: 160px;
+  height: 160px;
 
-  opacity: 0.8;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+  opacity: 0.75;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
   pointer-events: none;
   z-index: 10;
 }
@@ -385,15 +393,19 @@ body {
 .produto-thumb.wm-wrap::after {
   bottom: 6px;
   left: 6px;
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
   opacity: 0.45;
 }
 
 /* Página do produto (tela cheia) */
 .produto-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--roxo-principal) 0%,
+    var(--roxo-escuro) 100%
+  );
 }
 
 .produto-wrap {
@@ -421,29 +433,43 @@ body {
 }
 
 .produto-viewer {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   backdrop-filter: blur(10px);
   overflow: hidden;
+}
+
+/* wrapper específico do viewer (garante que o overlay não “vaze”) */
+.produto-viewer-wm {
+  display: block;
+  width: 100%;
 }
 
 .produto-img {
   width: 100%;
   height: min(75vh, 800px);
   object-fit: contain;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   display: block;
 }
 
+/* ===== GALERIA DO PRODUTO (COMO ANTES: SEM SCROLL / SEM SOBRA) ===== */
 .produto-galeria {
   display: flex;
   gap: 10px;
   padding: 12px;
-  overflow-x: auto;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   border-top: 2px solid var(--rosa-destaque);
-  justify-content: center;
+
+  overflow: hidden;        /* remove barra */
+  justify-content: flex-start; /* evita espaço “sobrando” */
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.produto-galeria::-webkit-scrollbar {
+  height: 0;
 }
 
 .produto-thumb {
@@ -479,14 +505,14 @@ body {
   flex-wrap: wrap;
   padding: 14px;
   justify-content: center;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 /* ===== SEÇÃO DE DESCRIÇÃO (SEM PREÇO) ===== */
 .produto-info {
   margin-top: 20px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   backdrop-filter: blur(10px);
   padding: 20px;
@@ -505,7 +531,7 @@ body {
 }
 
 .produto-descricao p {
-  color: rgba(255,255,255,0.95);
+  color: rgba(255, 255, 255, 0.95);
   font-size: 16px;
   line-height: 1.6;
   margin: 0;
@@ -519,7 +545,7 @@ body {
 }
 
 .detalhe-item {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 12px 16px;
   border-radius: 10px;
   display: flex;
@@ -527,7 +553,7 @@ body {
   align-items: center;
   gap: 10px;
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .detalhe-label {
@@ -560,59 +586,59 @@ body {
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .wrap { 
-    padding: 12px; 
+  .wrap {
+    padding: 12px;
   }
 
-  .logo-container { 
-    height: 140px; 
-  }
-  
-  .wpp-container { 
-    top: 10px; 
-    right: 10px; 
+  .logo-container {
+    height: 140px;
   }
 
-  .btn--wpp { 
-    padding: 9px 16px; 
-    font-size: 14px; 
+  .wpp-container {
+    top: 10px;
+    right: 10px;
   }
 
-  .hero h1 { 
-    font-size: 26px; 
-  }
-  
-  .hero p { 
-    font-size: 16px; 
+  .btn--wpp {
+    padding: 9px 16px;
+    font-size: 14px;
   }
 
-  .controls { 
-    grid-template-columns: 1fr; 
-    gap: 8px; 
+  .hero h1 {
+    font-size: 26px;
   }
 
-  .grid { 
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
-    gap: 12px; 
-  }
-  
-  .card__img { 
-    height: 160px; 
+  .hero p {
+    font-size: 16px;
   }
 
-  .footer__inner { 
-    flex-direction: column; 
-    gap: 4px; 
-    text-align: center; 
+  .controls {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
-  .produto-img { 
-    height: min(68vh, 600px); 
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
   }
-  
-  .produto-thumb img { 
-    width: 75px; 
-    height: 60px; 
+
+  .card__img {
+    height: 160px;
+  }
+
+  .footer__inner {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .produto-img {
+    height: min(68vh, 600px);
+  }
+
+  .produto-thumb img {
+    width: 75px;
+    height: 60px;
   }
 
   .produto-topbar {
@@ -644,28 +670,42 @@ body {
   .detalhe-item {
     padding: 10px 14px;
   }
+
+  /* Marca d'água responsiva (não fica gigantesca no mobile) */
+  .wm-wrap::after {
+    width: 120px;
+    height: 120px;
+    bottom: 12px;
+    left: 12px;
+    opacity: 0.72;
+  }
+
+  .produto-thumb.wm-wrap::after {
+    width: 46px;
+    height: 46px;
+  }
 }
 
 @media (max-width: 480px) {
-  .logo-container { 
-    height: 120px; 
+  .logo-container {
+    height: 120px;
   }
 
-  .hero h1 { 
-    font-size: 22px; 
-  }
-  
-  .hero p { 
-    font-size: 15px; 
+  .hero h1 {
+    font-size: 22px;
   }
 
-  .grid { 
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-    gap: 10px; 
+  .hero p {
+    font-size: 15px;
   }
-  
-  .card__img { 
-    height: 140px; 
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+
+  .card__img {
+    height: 140px;
   }
 
   .card__body {
@@ -686,9 +726,9 @@ body {
     padding: 7px 8px 9px;
   }
 
-  .produto-thumb img { 
-    width: 65px; 
-    height: 50px; 
+  .produto-thumb img {
+    width: 65px;
+    height: 50px;
   }
 
   .produto-info {
@@ -704,18 +744,41 @@ body {
   .detalhe-item span:last-child {
     text-align: center;
   }
+
+  /* Marca d'água mais compacta no 480px */
+  .wm-wrap::after {
+    width: 104px;
+    height: 104px;
+    bottom: 10px;
+    left: 10px;
+    opacity: 0.7;
+  }
+
+  .produto-thumb.wm-wrap::after {
+    width: 42px;
+    height: 42px;
+  }
 }
 
 @media (min-width: 1200px) {
-  .logo-container { 
-    height: 200px; 
+  .logo-container {
+    height: 200px;
   }
 
-  .hero h1 { 
-    font-size: 36px; 
+  .hero h1 {
+    font-size: 36px;
   }
-  
-  .hero p { 
-    font-size: 20px; 
+
+  .hero p {
+    font-size: 20px;
+  }
+
+  /* Marca d'água um pouco maior em telas grandes */
+  .wm-wrap::after {
+    width: 180px;
+    height: 180px;
+    bottom: 18px;
+    left: 18px;
+    opacity: 0.76;
   }
 }
