@@ -14,8 +14,8 @@
      - Foto grande: tamanho/posição/opacidade
      - Miniaturas: ligar/desligar
      ========================================================= */
-  --wm-big-left: 5px;
-  --wm-big-bottom: 5px;
+  --wm-big-left: 1px;
+  --wm-big-bottom: 1px;
   --wm-big-size: 220px;   /* aumenta/diminui aqui */
   --wm-big-opacity: 1;    /* 1 = 100% visível */
 
