@@ -341,7 +341,7 @@ body {
   padding: 12px 0;
 }
 
-/* ===== MARCA D'ÁGUA (OVERLAY) ===== */
+/* ===== MARCA D'ÁGUA (CANTO INFERIOR ESQUERDO) ===== */
 .wm-wrap {
   position: relative;
 }
@@ -350,7 +350,7 @@ body {
   display: block;
 }
 
-/* Overlay com a logo - AJUSTE O CAMINHO DA SUA LOGO AQUI */
+/* Overlay com a logo - CANTO INFERIOR ESQUERDO */
 .wm-wrap::after {
   content: "";
   position: absolute;
@@ -360,18 +360,18 @@ body {
   /* COLOQUE AQUI O NOME DO SEU ARQUIVO DE LOGO */
   background-image: url("logo-marca-dagua.png");
   background-repeat: no-repeat;
-  background-position: right 18px bottom 18px;
+  background-position: left 18px bottom 18px;
   background-size: clamp(80px, 18vw, 160px);
 
-  opacity: 0.25; /* ajuste aqui (0.15 a 0.35 costuma ficar bom) */
+  opacity: 0.5; /* 50% visível como você pediu */
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
 }
 
 /* Marca d'água menor nas miniaturas da galeria do produto */
 .produto-thumb.wm-wrap::after {
-  background-position: right 8px bottom 8px;
+  background-position: left 8px bottom 8px;
   background-size: clamp(40px, 10vw, 70px);
-  opacity: 0.22;
+  opacity: 0.45;
 }
 
 /* Página do produto (tela cheia) */
@@ -466,7 +466,7 @@ body {
   background: rgba(255,255,255,0.95);
 }
 
-/* ===== SEÇÃO DE DESCRIÇÃO (NOVO) ===== */
+/* ===== SEÇÃO DE DESCRIÇÃO (SEM PREÇO) ===== */
 .produto-info {
   margin-top: 20px;
   background: rgba(255,255,255,0.08);
