@@ -14,8 +14,8 @@
      - Foto grande: tamanho/posição/opacidade
      - Miniaturas: ligar/desligar
      ========================================================= */
-  --wm-big-left: 1px;
-  --wm-big-bottom: 1px;
+  --wm-big-left: 0px;
+  --wm-big-bottom: 0px;
   --wm-big-size: 220px;   /* tamanho da marca na foto grande */
   --wm-big-opacity: 1;    /* 1 = 100% visível */
 
@@ -729,4 +729,15 @@ html {
     width: max(var(--wm-big-size), 240px);
     height: max(var(--wm-big-size), 240px);
   }
+}
+/* ===== GARANTE marca d'água COLADA na foto grande ===== */
+.produto-viewer-wm.wm-wrap::after {
+  left: var(--wm-big-left) !important;
+  bottom: var(--wm-big-bottom) !important;
+  width: var(--wm-big-size) !important;
+  height: var(--wm-big-size) !important;
+  opacity: var(--wm-big-opacity) !important;
+  top: auto !important;
+  right: auto !important;
+  transform: none !important;
 }
