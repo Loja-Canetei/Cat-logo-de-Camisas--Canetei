@@ -341,42 +341,39 @@ body {
   padding: 12px 0;
 }
 
-/* ============================================================
-   MARCA D'ÁGUA — CORRIGIDO PARA FICAR 100% DENTRO DA FOTO
-   ============================================================ */
+/* ===== MARCA D'ÁGUA (100% EM CIMA DA FOTO, SEM VAZAR) ===== */
 .wm-wrap {
   position: relative;
-  display: inline-block;   /* wrapper acompanha o tamanho real do conteúdo */
+  display: inline-block;
   width: 100%;
-  line-height: 0;          /* remove “respiro” de linha (bug comum com img inline) */
-  overflow: hidden;        /* garante que a marca NÃO apareça fora da imagem */
+
+  line-height: 0;     /* remove “espaço fantasma” */
+  overflow: hidden;   /* corta qualquer coisa fora da área da imagem */
 }
 
-/* IMPORTANTE:
-   Não forçar height:100% aqui, porque isso pode descolar o wrapper do tamanho real da imagem
-   e causar “vazamento” para áreas brancas do layout.
-*/
+/* não force height:100% para evitar wrapper maior que a foto */
 .wm-wrap > img {
   display: block;
   width: 100%;
   height: auto;
   vertical-align: top;
-  object-fit: cover; /* mantém igual ao seu uso nos cards */
+  object-fit: cover;
 }
 
-/* Overlay da logo */
+/* Overlay com a logo - DENTRO da imagem */
 .wm-wrap::after {
   content: "";
   position: absolute;
-  left: 12px;
   bottom: 12px;
-  width: 80px;
-  height: 80px;
+  left: 12px;
 
   background-image: url("logo-marca-dagua.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+
+  width: 80px;
+  height: 80px;
 
   opacity: 0.8;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
@@ -386,8 +383,8 @@ body {
 
 /* Marca d'água menor nas miniaturas da galeria do produto */
 .produto-thumb.wm-wrap::after {
-  left: 6px;
   bottom: 6px;
+  left: 6px;
   width: 40px;
   height: 40px;
   opacity: 0.45;
