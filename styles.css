@@ -14,9 +14,9 @@
      - Foto grande: tamanho/posição/opacidade
      - Miniaturas: ligar/desligar
      ========================================================= */
-  --wm-big-left: 10px;
-  --wm-big-bottom: 10px;
-  --wm-big-size: 220px;   /* tamanho da marca na foto grande */
+  --wm-big-left: 1px;
+  --wm-big-bottom: 1px;
+  --wm-big-size: 240px;   /* tamanho da marca na foto grande */
   --wm-big-opacity: 1;    /* 1 = 100% visível */
 
   --wm-thumb-enabled: 0;  /* 0 = NÃO mostra nas miniaturas | 1 = mostra */
@@ -54,8 +54,8 @@ body {
 
 /* Banner otimizado para 1920x420 */
 .logo-container {
-  width: 90%;
-  height: 180px;
+  width: 100%;
+  height: 170px;
   padding: 0;
   background: var(--roxo-principal);
   position: relative;
