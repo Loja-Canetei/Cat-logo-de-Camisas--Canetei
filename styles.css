@@ -550,27 +550,6 @@ body {
   opacity: calc(var(--wm-thumb-enabled) * var(--wm-thumb-opacity));
   pointer-events: none;
   z-index: 10;
-
-  /* quando disabled=0, some de verdade */
-  visibility: hidden;
-}
-
-.produto-thumb.wm-wrap[style],
-.produto-thumb.wm-wrap,
-.produto-galeria {
-  /* (sem alterações; bloco vazio removido) */
-}
-
-/* Mostra quando enabled=1 */
-:root {
-  /* nada */
-}
-html {
-  /* nada */
-}
-/* Regra simples: quando enabled=1 a opacity fica > 0; só precisamos liberar visibilidade */
-.produto-thumb.wm-wrap::after {
-  visibility: visible;
 }
 
 /* Botões de navegação: SEM FUNDO */
@@ -730,14 +709,15 @@ html {
     height: max(var(--wm-big-size), 240px);
   }
 }
+
 /* ===== GARANTE marca d'água COLADA na foto grande ===== */
 .produto-viewer-wm.wm-wrap::after {
-  left: var(--wm-big-left) !important;
-  bottom: var(--wm-big-bottom) !important;
-  width: var(--wm-big-size) !important;
-  height: var(--wm-big-size) !important;
-  opacity: var(--wm-big-opacity) !important;
-  top: auto !important;
-  right: auto !important;
-  transform: none !important;
+  left: var(--wm-big-left);
+  bottom: var(--wm-big-bottom);
+  width: var(--wm-big-size);
+  height: var(--wm-big-size);
+  opacity: var(--wm-big-opacity);
+  top: auto;
+  right: auto;
+  transform: none;
 }
