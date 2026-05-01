@@ -9,46 +9,73 @@
 
 <body class="produto-page">
   <main class="produto-wrap">
-    <div class="produto-topbar">
+    <header class="produto-topbar">
       <a class="btn btn--sec" href="index.html">← Voltar</a>
-      <h1 class="produto-titulo" id="produtoTitulo">Camisa</h1>
-      <a class="btn btn--wpp" id="produtoWpp" href="#" target="_blank" rel="noopener">Consultar no WhatsApp</a>
-    </div>
 
-    <section class="produto-viewer">
-      <!-- Wrapper para marca d'água -->
-      <div class="wm-wrap">
-        <img id="produtoImg" class="produto-img" alt="Camisa" />
+      <h1 class="produto-titulo" id="produtoTitulo">Camisa</h1>
+
+      <a
+        class="btn btn--wpp"
+        id="produtoWpp"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      >
+        Consultar no WhatsApp
+      </a>
+    </header>
+
+    <section class="produto-viewer" aria-label="Visualização do produto">
+      <!--
+        IMPORTANTE:
+        A marca d’água funciona porque a relação é exatamente:
+        .wm-wrap (position:relative) -> img (display:block) + ::after overlay
+      -->
+      <div class="wm-wrap produto-viewer-wm">
+        <img
+          id="produtoImg"
+          class="produto-img"
+          alt="Camisa"
+          loading="eager"
+          decoding="async"
+        />
       </div>
-      
-      <div id="produtoGaleria" class="produto-galeria" aria-label="Miniaturas"></div>
-      
-      <div class="produto-acoes">
+
+      <div
+        id="produtoGaleria"
+        class="produto-galeria"
+        aria-label="Miniaturas"
+        role="list"
+      ></div>
+
+      <div class="produto-acoes" aria-label="Navegação de imagens">
         <button class="btn btn--sec" id="prevImg" type="button">← Anterior</button>
         <button class="btn btn--sec" id="nextImg" type="button">Próxima →</button>
       </div>
     </section>
 
-    <!-- SEÇÃO DE DESCRIÇÃO (SEM PREÇO) -->
-    <section class="produto-info" id="produtoInfo">
+    <section class="produto-info" id="produtoInfo" aria-label="Informações do produto">
       <div class="produto-descricao">
         <h2>Descrição do Produto</h2>
         <p id="produtoDescTexto">Carregando...</p>
       </div>
-      
-      <div class="produto-detalhes">
+
+      <div class="produto-detalhes" aria-label="Detalhes do produto">
         <div class="detalhe-item">
           <span class="detalhe-label">Código:</span>
           <span id="produtoCodigo">---</span>
         </div>
+
         <div class="detalhe-item">
           <span class="detalhe-label">Liga/Categoria:</span>
           <span id="produtoLiga">---</span>
         </div>
+
         <div class="detalhe-item">
           <span class="detalhe-label">Material:</span>
           <span id="produtoMaterial">---</span>
         </div>
+
         <div class="detalhe-item">
           <span class="detalhe-label">Tamanhos:</span>
           <span id="produtoTamanhos">---</span>
