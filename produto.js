@@ -327,8 +327,9 @@ if (produto && produto[versao]) {
 
 // Log para debug (remover em produção)
 console.log("Produto carregado:", {
-  id,
-  versao,
-  imgIndex,
-  produto: produto?.nome,
-  totalImagens: produto?.[versao] ?
+  id: id,
+  versao: versao,
+  imgIndex: imgIndex,
+  produto: produto?.nome || "Não encontrado",
+  totalImagens: produto?.[versao]?.imagens?.length || 0
+});
