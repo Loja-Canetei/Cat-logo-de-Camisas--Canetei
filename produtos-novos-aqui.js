@@ -22,6 +22,9 @@ const PRODUTOS = [
     nome: "Brasil Amarelo 2026 Copa",
     categoria: "copa2026",
     liga: "Copa do Mundo 2026",
+    descricao: "Camisa oficial da Seleção Brasileira para a Copa do Mundo de 2026. Design renovado mantém as cores tradicionais com tecnologia Nike Dri-FIT para máximo conforto e performance. Escudo bordado e detalhes exclusivos da CBF. Ideal para torcer pelo Hexa!",
+    preco_ref: "R$ 89,90",
+    material: "100% Poliéster com tecnologia Dri-FIT",
     masculino: {
       imagens: [
      "camisas/brasil-amar-frente-masc.jpg",
@@ -29,7 +32,6 @@ const PRODUTOS = [
         "camisas/brasil-amar-gola-masc.png",
         "camisas/brasil-amar-escudo-masc.png",
         "camisas/brasil-amar-nike-masc.png",
-        
       ],
       tamanhos: ["P", "M", "G", "GG"],
     },
@@ -50,7 +52,7 @@ const PRODUTOS = [
     },
   },
   
-  // PARA ADICIONAR NOVO PRODUTO, COPIE O FORMATO ACIMA E COLE AQUI:
+  // PARA ADICIONAR NOVO PRODUTO, COPIE O FORMATO ABAIXO:
   /*
   {
     id: 2, // sempre um número único
@@ -58,6 +60,9 @@ const PRODUTOS = [
     nome: "Real Madrid Branca",
     categoria: "laliga",
     liga: "La Liga",
+    descricao: "Camisa oficial do Real Madrid temporada 2024/25. Design clássico em branco com detalhes dourados e escudo bordado. Tecnologia Adidas AEROREADY para ventilação e conforto. Perfeita para os torcedores merengues!",
+    preco_ref: "R$ 94,90",
+    material: "100% Poliéster reciclado",
     masculino: {
       imagens: [
         "camisas/real-madrid-branca-frente.jpg",
