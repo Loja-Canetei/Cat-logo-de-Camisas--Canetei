@@ -5,6 +5,9 @@
   --cinza-claro: #f6f7fb;
   --branco: #fff;
   --verde-wpp: #16a34a;
+
+  /* NOVO: variável pra unificar o fundo da área de thumbs + botões */
+  --produto-bar-bg: rgba(255, 255, 255, 0.93);
 }
 
 * {
@@ -414,12 +417,19 @@ body {
   text-align: center;
 }
 
+/* ===== AJUSTE PRINCIPAL (NOVO) =====
+   - remove "fresta"/bloco branco entre galeria e botões
+   - garante layout consistente em qualquer altura */
 .produto-viewer {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   backdrop-filter: blur(10px);
   overflow: hidden;
+
+  /* NOVO */
+  display: grid;
+  grid-template-rows: auto auto auto;
 }
 
 /* wrapper específico do viewer */
@@ -436,13 +446,16 @@ body {
   display: block;
 }
 
-/* ===== GALERIA DO PRODUTO: Carrossel horizontal (estilo print 1) ===== */
+/* ===== GALERIA DO PRODUTO ===== */
 .produto-galeria {
   display: flex;
   gap: 8px;
   align-items: center;
   padding: 8px 12px 10px;
-  background: rgba(255,255,255,0.93);
+
+  /* ALTERADO: unifica o fundo com os botões */
+  background: var(--produto-bar-bg);
+
   border-top: 2px solid var(--rosa-destaque);
   max-width: 100%;
   overflow-x: auto;
@@ -450,6 +463,9 @@ body {
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x proximity;
   box-shadow: none;
+
+  /* NOVO: ajuda a evitar “linha”/fresta por arredondamento */
+  line-height: 1;
 }
 
 .produto-galeria::-webkit-scrollbar {
@@ -496,8 +512,13 @@ body {
   flex-wrap: wrap;
   padding: 12px 14px;
   justify-content: center;
-  background: transparent;
-  border-top: none;
+
+  /* ALTERADO: mesmo fundo da galeria (some o “espaço branco”) */
+  background: var(--produto-bar-bg);
+
+  /* NOVO: separador sutil (não é espaço, é uma linha) */
+  border-top: 1px solid rgba(107, 44, 145, 0.15);
+
   box-shadow: none;
 }
 
