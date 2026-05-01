@@ -378,8 +378,8 @@ body {
 .wm-wrap::after {
   content: "";
   position: absolute;
-  bottom: 16px;
-  left: 16px;
+  bottom: 10px;
+  left: 10px;
   background-image: url("logo-marca-dagua.png");
   background-repeat: no-repeat;
   background-position: center;
