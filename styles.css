@@ -666,12 +666,6 @@ body {
   .produto-descricao p { font-size: 15px; }
   .produto-detalhes { grid-template-columns: 1fr; gap: 10px; }
   .detalhe-item { padding: 10px 14px; }
-
-  /* no mobile: limita o tamanho da marca */
-  .wm-wrap::after {
-    width: min(var(--wm-big-size), 160px);
-    height: min(var(--wm-big-size), 160px);
-  }
 }
 
 @media (max-width: 480px) {
@@ -691,23 +685,12 @@ body {
 
   .detalhe-item { flex-direction: column; text-align: center; gap: 6px; }
   .detalhe-item span:last-child { text-align: center; }
-
-  .wm-wrap::after {
-    width: min(var(--wm-big-size), 140px);
-    height: min(var(--wm-big-size), 140px);
-  }
 }
 
 @media (min-width: 1200px) {
   .logo-container { height: 200px; }
   .hero h1 { font-size: 36px; }
   .hero p { font-size: 20px; }
-
-  /* no desktop grande: permite crescer um pouco */
-  .wm-wrap::after {
-    width: max(var(--wm-big-size), 240px);
-    height: max(var(--wm-big-size), 240px);
-  }
 }
 
 /* ===== GARANTE marca d'água COLADA na foto grande ===== */
