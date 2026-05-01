@@ -331,5 +331,4 @@ console.log("Produto carregado:", {
   versao,
   imgIndex,
   produto: produto?.nome,
-  totalImagens: produto?.[versao] ? safeImagens(produto[versao].imagens).length : 0
-});
+  totalImagens: produto?.[versao] ?
