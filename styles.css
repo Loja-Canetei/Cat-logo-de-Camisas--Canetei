@@ -361,9 +361,9 @@ body {
   background-image: url("logo-marca-dagua.png");
   background-repeat: no-repeat;
   background-position: left 50px bottom 20px;
-  background-size: clamp(80px, 18vw, 160px);
+  background-size: clamp(100px, 18vw, 160px);
 
-  opacity: 0.9; /* 50% visível como você pediu */
+  opacity: 1; /* 50% visível como você pediu */
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
 }
 
