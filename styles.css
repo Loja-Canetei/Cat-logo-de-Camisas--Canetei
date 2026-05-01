@@ -14,9 +14,9 @@
      - Foto grande: tamanho/posição/opacidade
      - Miniaturas: ligar/desligar
      ========================================================= */
-  --wm-big-left: 0px;
-  --wm-big-bottom: 0px;
-  --wm-big-size: 220px;   /* tamanho da marca na foto grande */
+  --wm-big-left: 20px;
+  --wm-big-bottom: 20px;
+  --wm-big-size: 2220px;   /* tamanho da marca na foto grande */
   --wm-big-opacity: 1;    /* 1 = 100% visível */
 
   --wm-thumb-enabled: 0;  /* 0 = NÃO mostra nas miniaturas | 1 = mostra */
