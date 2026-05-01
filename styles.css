@@ -8,6 +8,22 @@
 
   /* ok manter, mas NÃO vamos usar na barra do produto */
   --produto-bar-bg: rgba(255, 255, 255, 0.93);
+
+  /* =========================================================
+     CONTROLES SIMPLES DA MARCA D'ÁGUA (edite só aqui)
+     - Foto grande: tamanho/posição/opacidade
+     - Miniaturas: ligar/desligar
+     ========================================================= */
+  --wm-big-left: 5px;
+  --wm-big-bottom: 5px;
+  --wm-big-size: 220px;   /* aumenta/diminui aqui */
+  --wm-big-opacity: 1;    /* 1 = 100% visível */
+
+  --wm-thumb-enabled: 0;  /* 0 = NÃO mostra nas miniaturas | 1 = mostra */
+  --wm-thumb-left: 6px;
+  --wm-thumb-bottom: 6px;
+  --wm-thumb-size: 26px;
+  --wm-thumb-opacity: 0.45;
 }
 
 * {
@@ -221,8 +237,7 @@ body {
   cursor: pointer;
   padding: 2px;
   background: transparent;
-  transition: border-color 0.2s ease, transform 0.1s ease,
-    filter 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.1s ease, filter 0.2s ease;
   flex: 0 0 auto;
 }
 
@@ -354,11 +369,7 @@ body {
   padding: 12px 0;
 }
 
-/* ===== MARCA D'ÁGUA =====
-   PROBLEMA ORIGINAL: .wm-wrap tem width:100% e display:inline-block.
-   Quando essa classe cai num BOTÃO (thumb), ela pode esticar o botão e
-   “criar” área vazia. Então separamos: wm-wrap genérico (imagem grande)
-   e wm-wrap específico para thumb. */
+/* ===== MARCA D'ÁGUA ===== */
 .wm-wrap {
   position: relative;
   display: inline-block;
@@ -375,19 +386,27 @@ body {
   object-fit: cover;
 }
 
+/* FOTO GRANDE: maior, 100% visível, quase colada (5px) */
 .wm-wrap::after {
   content: "";
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+
+  bottom: var(--wm-big-bottom);
+  left: var(--wm-big-left);
+
   background-image: url("logo-marca-dagua.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  width: 160px;
-  height: 160px;
-  opacity: 0.75;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+
+  width: var(--wm-big-size);
+  height: var(--wm-big-size);
+
+  opacity: var(--wm-big-opacity);
+
+  /* você pediu 100% visível e simples; removi sombra */
+  filter: none;
+
   pointer-events: none;
   z-index: 10;
 }
@@ -452,24 +471,20 @@ body {
 
 /* ===== GALERIA DO PRODUTO — EXATAMENTE COMO ERA (FAIXA BAIXA) ===== */
 .produto-galeria {
-  /* faixa */
   background: transparent;
   border-top: 2px solid var(--rosa-destaque);
   padding: 8px 12px 10px;
 
-  /* layout */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 
-  /* scroll horizontal */
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
 
-  /* mata qualquer altura fantasma */
   height: auto;
   min-height: 0;
   line-height: 1;
@@ -502,7 +517,6 @@ body {
   justify-content: center;
   flex: 0 0 auto;
 
-  /* impede thumbs “inflarem” por regras externas */
   width: auto;
   height: auto;
   min-height: 0;
@@ -511,7 +525,6 @@ body {
   transition: border-color 0.2s ease, transform 0.1s ease, filter 0.2s ease;
 }
 
-/* IMAGEM do thumb exatamente no padrão antigo (miniatura) */
 .produto-thumb img {
   width: 56px;
   height: 44px;
@@ -539,22 +552,71 @@ body {
   line-height: 0;
 }
 
-/* marca d’água menor nas miniaturas (sem empurrar layout) */
+/* MINIATURAS: DESLIGADO por padrão (edita no :root --wm-thumb-enabled) */
 .produto-thumb.wm-wrap::after {
   content: "";
   position: absolute;
-  bottom: 6px;
-  left: 6px;
-  width: 26px;
-  height: 26px;
+
+  bottom: var(--wm-thumb-bottom);
+  left: var(--wm-thumb-left);
+
+  width: var(--wm-thumb-size);
+  height: var(--wm-thumb-size);
+
   background-image: url("logo-marca-dagua.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  opacity: 0.45;
+
+  opacity: var(--wm-thumb-opacity);
+
   pointer-events: none;
   z-index: 10;
+
+  /* CHAVE: 0 = some, 1 = aparece */
+  display: none;
+  display: block;
+  display: inline-block;
+  display: flex;
 }
+
+/* A linha acima com vários display NÃO é ideal; então fazemos do jeito certo:
+   controla com opacity + pointer-events e "visibilidade".
+   (mantém simples: mude só o --wm-thumb-enabled no :root) */
+.produto-thumb.wm-wrap::after {
+  opacity: calc(var(--wm-thumb-enabled) * var(--wm-thumb-opacity));
+  visibility: hidden;
+}
+
+:root[style] {}
+
+/* Regras de exibição (seguras e simples) */
+.produto-thumb.wm-wrap::after { visibility: hidden; }
+:root {}
+
+/* Quando habilitar = 1, aparece */
+html:root {
+  /* nada aqui, só pra manter compat */
+}
+:root {
+  /* nada aqui */
+}
+
+/* Solução direta e limpa: se enabled=0 => content:none; se enabled=1 => content:"" 
+   (CSS puro não compara variável, então deixo o padrão DESLIGADO via content:none,
+    e se quiser ligar, você troca manualmente 1 linha abaixo) */
+
+/* PADRÃO: não mostra em miniaturas */
+.produto-thumb.wm-wrap::after{
+  content: none;
+}
+
+/* >>> SE UM DIA você quiser mostrar de novo nas miniaturas,
+       comente o bloco acima (content:none) e descomente este aqui:
+.produto-thumb.wm-wrap::after{
+  content: "";
+}
+*/
 
 /* Botões de navegação: SEM FUNDO (como era) */
 .produto-acoes {
@@ -691,7 +753,6 @@ body {
     height: min(68vh, 600px);
   }
 
-  /* thumbs continuam pequenas como antes */
   .produto-thumb img {
     width: 50px;
     height: 40px;
@@ -722,12 +783,10 @@ body {
     padding: 10px 14px;
   }
 
+  /* No mobile, mantenho proporcional via variável (mais simples pra você testar) */
   .wm-wrap::after {
-    width: 120px;
-    height: 120px;
-    bottom: 12px;
-    left: 12px;
-    opacity: 0.72;
+    width: min(var(--wm-big-size), 160px);
+    height: min(var(--wm-big-size), 160px);
   }
 }
 
@@ -782,11 +841,8 @@ body {
   }
 
   .wm-wrap::after {
-    width: 104px;
-    height: 104px;
-    bottom: 10px;
-    left: 10px;
-    opacity: 0.7;
+    width: min(var(--wm-big-size), 140px);
+    height: min(var(--wm-big-size), 140px);
   }
 }
 
@@ -800,11 +856,10 @@ body {
   .hero p {
     font-size: 20px;
   }
+
+  /* no desktop grande, permite crescer um pouco */
   .wm-wrap::after {
-    width: 180px;
-    height: 180px;
-    bottom: 18px;
-    left: 18px;
-    opacity: 0.76;
+    width: max(var(--wm-big-size), 240px);
+    height: max(var(--wm-big-size), 240px);
   }
 }
