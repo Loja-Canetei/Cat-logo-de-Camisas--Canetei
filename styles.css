@@ -6,7 +6,7 @@
   --branco: #fff;
   --verde-wpp: #16a34a;
 
-  /* NOVO: variável pra unificar o fundo da área de thumbs + botões */
+  /* (pode manter, mas não vamos usar pra não ferrar o layout da galeria) */
   --produto-bar-bg: rgba(255, 255, 255, 0.93);
 }
 
@@ -18,7 +18,11 @@ body {
   margin: 0;
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
   color: #20112d;
-  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--roxo-principal) 0%,
+    var(--roxo-escuro) 100%
+  );
   min-height: 100vh;
 }
 
@@ -217,7 +221,8 @@ body {
   cursor: pointer;
   padding: 2px;
   background: transparent;
-  transition: border-color 0.2s ease, transform 0.1s ease, filter 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.1s ease,
+    filter 0.2s ease;
   flex: 0 0 auto;
 }
 
@@ -251,7 +256,7 @@ body {
   font-weight: 900;
   color: var(--rosa-destaque);
   background: #f9e9f5;
-  padding:  4px 8px;
+  padding: 4px 8px;
   border-radius: 12px;
   text-align: center;
   letter-spacing: 0.5px;
@@ -297,7 +302,11 @@ body {
 }
 
 .btn-variante.ativa {
-  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--roxo-principal) 0%,
+    var(--roxo-escuro) 100%
+  );
   color: var(--branco);
   border-color: var(--roxo-principal);
 }
@@ -354,6 +363,10 @@ body {
   overflow: hidden;
 }
 
+/* IMPORTANTE:
+   Para thumb, wm-wrap está num <button>.
+   Então o seletor ".wm-wrap > img" NÃO pega o <img> da miniatura.
+   A miniatura já é controlada por ".produto-thumb img". */
 .wm-wrap > img {
   display: block;
   width: 100%;
@@ -379,6 +392,7 @@ body {
   z-index: 10;
 }
 
+/* marca d'água menor nas miniaturas */
 .produto-thumb.wm-wrap::after {
   bottom: 6px;
   left: 6px;
@@ -390,7 +404,11 @@ body {
 /* ===== PÁGINA DO PRODUTO ===== */
 .produto-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--roxo-principal) 0%,
+    var(--roxo-escuro) 100%
+  );
 }
 
 .produto-wrap {
@@ -417,9 +435,9 @@ body {
   text-align: center;
 }
 
-/* ===== AJUSTE PRINCIPAL (NOVO) =====
-   - remove "fresta"/bloco branco entre galeria e botões
-   - garante layout consistente em qualquer altura */
+/* ===== VIEWER DO PRODUTO =====
+   VOLTAMOS para o comportamento antigo (sem grid),
+   pra não criar altura branca estranha na faixa da galeria */
 .produto-viewer {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -427,9 +445,8 @@ body {
   backdrop-filter: blur(10px);
   overflow: hidden;
 
-  /* NOVO */
-  display: grid;
-  grid-template-rows: auto auto auto;
+  /* VOLTA */
+  display: block;
 }
 
 /* wrapper específico do viewer */
@@ -446,45 +463,45 @@ body {
   display: block;
 }
 
-/* ===== GALERIA DO PRODUTO ===== */
+/* ===== GALERIA DO PRODUTO (VOLTA AO "ANTES") ===== */
 .produto-galeria {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
+
   padding: 8px 12px 10px;
-
-  /* ALTERADO: unifica o fundo com os botões */
-  background: var(--produto-bar-bg);
-
+  background: rgba(255, 255, 255, 0.93);
   border-top: 2px solid var(--rosa-destaque);
+
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  box-shadow: none;
 
-  /* NOVO: ajuda a evitar “linha”/fresta por arredondamento */
-  line-height: 1;
+  /* remove qualquer chance de “caixão branco” */
+  height: auto;
+  min-height: 0;
 }
 
 .produto-galeria::-webkit-scrollbar {
   height: 6px;
 }
+
 .produto-galeria::-webkit-scrollbar-thumb {
   background: rgba(107, 44, 145, 0.22);
   border-radius: 10px;
 }
 
 .produto-thumb {
+  flex: 0 0 auto;
+  display: inline-flex;
+
   border: 2px solid transparent;
   padding: 2px;
   border-radius: 12px;
   background: transparent;
   cursor: pointer;
-  flex: 0 0 auto;
   transition: all 0.2s ease;
-  scroll-snap-align: start;
 }
 
 .produto-thumb img {
@@ -505,7 +522,7 @@ body {
   transform: scale(1.05);
 }
 
-/* Botões de navegação */
+/* Botões de navegação (VOLTA AO "ANTES") */
 .produto-acoes {
   display: flex;
   gap: 10px;
@@ -513,11 +530,9 @@ body {
   padding: 12px 14px;
   justify-content: center;
 
-  /* ALTERADO: mesmo fundo da galeria (some o “espaço branco”) */
-  background: var(--produto-bar-bg);
-
-  /* NOVO: separador sutil (não é espaço, é uma linha) */
-  border-top: 1px solid rgba(107, 44, 145, 0.15);
+  /* VOLTA: transparente (não cria bloco branco gigante) */
+  background: transparent;
+  border-top: none;
 
   box-shadow: none;
 }
@@ -600,62 +615,167 @@ body {
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .wrap { padding: 12px; }
-  .logo-container { height: 140px; }
-  .wpp-container { top: 10px; right: 10px; }
-  .btn--wpp { padding: 9px 16px; font-size: 14px; }
-  .hero h1 { font-size: 26px; }
-  .hero p { font-size: 16px; }
-  .controls { grid-template-columns: 1fr; gap: 8px; }
-  .grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-  .card__img { height: 160px; }
-  .footer__inner { flex-direction: column; gap: 4px; text-align: center; }
+  .wrap {
+    padding: 12px;
+  }
+  .logo-container {
+    height: 140px;
+  }
+  .wpp-container {
+    top: 10px;
+    right: 10px;
+  }
+  .btn--wpp {
+    padding: 9px 16px;
+    font-size: 14px;
+  }
+  .hero h1 {
+    font-size: 26px;
+  }
+  .hero p {
+    font-size: 16px;
+  }
+  .controls {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .card__img {
+    height: 160px;
+  }
+  .footer__inner {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
 
-  .produto-img { height: min(68vh, 600px); }
+  .produto-img {
+    height: min(68vh, 600px);
+  }
 
-  .produto-thumb img { width: 75px; height: 60px; }
+  .produto-thumb img {
+    width: 75px;
+    height: 60px;
+  }
 
-  .produto-topbar { flex-direction: column; gap: 8px; }
-  .produto-titulo { font-size: 16px; }
+  .produto-topbar {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .produto-titulo {
+    font-size: 16px;
+  }
 
-  .produto-info { padding: 16px; }
-  .produto-descricao h2 { font-size: 18px; }
-  .produto-descricao p { font-size: 15px; }
-  .produto-detalhes { grid-template-columns: 1fr; gap: 10px; }
-  .detalhe-item { padding: 10px 14px; }
+  .produto-info {
+    padding: 16px;
+  }
+  .produto-descricao h2 {
+    font-size: 18px;
+  }
+  .produto-descricao p {
+    font-size: 15px;
+  }
+  .produto-detalhes {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .detalhe-item {
+    padding: 10px 14px;
+  }
 
   .wm-wrap::after {
-    width: 120px; height: 120px; bottom: 12px; left: 12px; opacity: 0.72;
+    width: 120px;
+    height: 120px;
+    bottom: 12px;
+    left: 12px;
+    opacity: 0.72;
   }
-  .produto-thumb.wm-wrap::after { width: 46px; height: 46px; }
+  .produto-thumb.wm-wrap::after {
+    width: 46px;
+    height: 46px;
+  }
 }
 
 @media (max-width: 480px) {
-  .logo-container { height: 120px; }
-  .hero h1 { font-size: 22px; }
-  .hero p { font-size: 15px; }
-  .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-  .card__img { height: 140px; }
-  .card__body { padding: 10px; }
-  .btn-variante { padding: 7px 10px; font-size: 11px; }
-  .miniatura img { width: 50px; height: 40px; }
-  .galeria-wrapper { padding: 7px 8px 9px; }
+  .logo-container {
+    height: 120px;
+  }
+  .hero h1 {
+    font-size: 22px;
+  }
+  .hero p {
+    font-size: 15px;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  .card__img {
+    height: 140px;
+  }
+  .card__body {
+    padding: 10px;
+  }
+  .btn-variante {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+  .miniatura img {
+    width: 50px;
+    height: 40px;
+  }
+  .galeria-wrapper {
+    padding: 7px 8px 9px;
+  }
 
-  .produto-thumb img { width: 65px; height: 50px; }
-  .produto-info { padding: 14px; }
+  .produto-thumb img {
+    width: 65px;
+    height: 50px;
+  }
+  .produto-info {
+    padding: 14px;
+  }
 
-  .detalhe-item { flex-direction: column; text-align: center; gap: 6px; }
-  .detalhe-item span:last-child { text-align: center; }
+  .detalhe-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+  .detalhe-item span:last-child {
+    text-align: center;
+  }
 
   .wm-wrap::after {
-    width: 104px; height: 104px; bottom: 10px; left: 10px; opacity: 0.7;
+    width: 104px;
+    height: 104px;
+    bottom: 10px;
+    left: 10px;
+    opacity: 0.7;
   }
-  .produto-thumb.wm-wrap::after { width: 42px; height: 42px; }
+  .produto-thumb.wm-wrap::after {
+    width: 42px;
+    height: 42px;
+  }
 }
 
 @media (min-width: 1200px) {
-  .logo-container { height: 200px; }
-  .hero h1 { font-size: 36px; }
-  .hero p { font-size: 20px; }
-  .wm-wrap::after { width: 180px; height: 180px; bottom: 18px; left: 18px; opacity: 0.76; }
+  .logo-container {
+    height: 200px;
+  }
+  .hero h1 {
+    font-size: 36px;
+  }
+  .hero p {
+    font-size: 20px;
+  }
+  .wm-wrap::after {
+    width: 180px;
+    height: 180px;
+    bottom: 18px;
+    left: 18px;
+    opacity: 0.76;
+  }
 }
