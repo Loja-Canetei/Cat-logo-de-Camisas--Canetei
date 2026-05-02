@@ -50,6 +50,16 @@ function configurarImagemFallback(imgElement, fallbackSrc = IMG_FALLBACK) {
 }
 
 /**
+ * Garante que a marca d'água seja aplicada na imagem principal
+ */
+function aplicarMarcaDaguaImagemPrincipal() {
+  const wrapper = document.querySelector('.produto-viewer-wm');
+  if (wrapper) {
+    wrapper.classList.add('wm-wrap');
+  }
+}
+
+/**
  * Renderiza o produto na página
  */
 function render() {
@@ -74,9 +84,18 @@ function render() {
     $titulo.textContent = tituloCompleto;
   }
 
-  // ===== ATUALIZAR IMAGEM PRINCIPAL =====
+  // ===== ATUALIZAR IMAGEM PRINCIPAL COM MARCA D'ÁGUA =====
   if ($img) {
     const imagemSrc = imagens[imgIndex] || IMG_FALLBACK;
+    
+    // Encontrar o wrapper da imagem (deve ter classe produto-viewer-wm)
+    const wrapper = $img.parentElement;
+    
+    // Garantir que o wrapper tenha a classe wm-wrap
+    if (wrapper && wrapper.classList.contains('produto-viewer-wm')) {
+      wrapper.classList.add('wm-wrap');
+    }
+    
     $img.src = imagemSrc;
     $img.alt = tituloCompleto;
     configurarImagemFallback($img);
@@ -96,6 +115,9 @@ function render() {
 
   // ===== ATUALIZAR ESTADO DOS BOTÕES =====
   atualizarBotoes(imagens.length);
+
+  // ===== GARANTIR MARCA D'ÁGUA NA IMAGEM PRINCIPAL =====
+  aplicarMarcaDaguaImagemPrincipal();
 
   // ===== ATUALIZAR URL =====
   atualizarURL();
