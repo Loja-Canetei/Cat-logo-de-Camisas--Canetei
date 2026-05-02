@@ -55,7 +55,11 @@ function configurarImagemFallback(imgElement, fallbackSrc = IMG_FALLBACK) {
 function aplicarMarcaDaguaImagemPrincipal() {
   const wrapper = document.querySelector('.produto-viewer-wm');
   if (wrapper) {
+    // Força a classe wm-wrap para garantir compatibilidade
     wrapper.classList.add('wm-wrap');
+    
+    // Força atualização do CSS para debug
+    wrapper.style.position = 'relative';
   }
 }
 
@@ -94,6 +98,8 @@ function render() {
     // Garantir que o wrapper tenha a classe wm-wrap
     if (wrapper && wrapper.classList.contains('produto-viewer-wm')) {
       wrapper.classList.add('wm-wrap');
+      // Força position relative para debug
+      wrapper.style.position = 'relative';
     }
     
     $img.src = imagemSrc;
@@ -121,6 +127,14 @@ function render() {
 
   // ===== ATUALIZAR URL =====
   atualizarURL();
+
+  // Debug: log das configurações da marca d'água
+  console.log("Configurações da marca d'água:", {
+    left: getComputedStyle(document.documentElement).getPropertyValue('--wm-big-left'),
+    bottom: getComputedStyle(document.documentElement).getPropertyValue('--wm-big-bottom'),
+    size: getComputedStyle(document.documentElement).getPropertyValue('--wm-big-size'),
+    opacity: getComputedStyle(document.documentElement).getPropertyValue('--wm-big-opacity')
+  });
 }
 
 /**
@@ -141,6 +155,7 @@ function renderGaleria(imagens, tituloCompleto) {
           data-i="${index}" 
           aria-label="${ariaLabel}"
           title="${ariaLabel}"
+          style="position: relative;"
         >
           <img 
             src="${src}" 
@@ -337,7 +352,20 @@ document.addEventListener("dragstart", (event) => {
 
 // ===== INICIALIZAÇÃO =====
 // Renderizar assim que o script carregar
-render();
+document.addEventListener('DOMContentLoaded', () => {
+  render();
+  
+  // Força aplicação da marca d'água após 100ms (fallback)
+  setTimeout(aplicarMarcaDaguaImagemPrincipal, 100);
+});
+
+// Fallback se DOMContentLoaded já passou
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', render);
+} else {
+  render();
+  setTimeout(aplicarMarcaDaguaImagemPrincipal, 100);
+}
 
 // Adicionar meta description dinâmico
 if (produto && produto[versao]) {
@@ -353,5 +381,6 @@ console.log("Produto carregado:", {
   versao: versao,
   imgIndex: imgIndex,
   produto: produto?.nome || "Não encontrado",
-  totalImagens: produto?.[versao]?.imagens?.length || 0
+  totalImagens: produto?.[versao]?.imagens?.length || 0,
+  wrapperExists: !!document.querySelector('.produto-viewer-wm')
 });
