@@ -355,27 +355,32 @@ body {
   padding: 12px 0;
 }
 
-/* ===== MARCA D'ÁGUA ===== */
+/* ===== MARCA D'ÁGUA (SISTEMA ISOLADO - SEM CONFLITO) ===== */
+
+/* Base wrapper */
 .wm-wrap {
   position: relative;
-  display: inline-block;
-  width: 100%;
-  line-height: 0;
   overflow: hidden;
 }
 
-.wm-wrap > img {
+.wm-wrap img {
   display: block;
   width: 100%;
   height: auto;
   vertical-align: top;
-  object-fit: cover;
 }
 
-/* PADRÃO (cards/listas): usa as configs "big" */
-.wm-wrap::after {
+/* ===== IMAGEM PRINCIPAL DO PRODUTO ===== */
+.produto-viewer-wm {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.produto-viewer-wm::after {
   content: "";
   position: absolute;
+
   left: var(--wm-big-left);
   bottom: var(--wm-big-bottom);
 
@@ -388,13 +393,54 @@ body {
   background-size: contain;
 
   opacity: var(--wm-big-opacity);
-  filter: none;
   pointer-events: none;
   z-index: 10;
+}
 
-  top: auto;
-  right: auto;
-  transform: none;
+/* ===== MINIATURAS DO PRODUTO ===== */
+.produto-thumb.wm-wrap {
+  position: relative;
+}
+
+.produto-thumb.wm-wrap::after {
+  content: "";
+  position: absolute;
+
+  left: var(--wm-thumb-left);
+  bottom: var(--wm-thumb-bottom);
+
+  width: var(--wm-thumb-size);
+  height: var(--wm-thumb-size);
+
+  background-image: url("logo-marca-dagua.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  opacity: calc(var(--wm-thumb-enabled) * var(--wm-thumb-opacity));
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ===== CARDS DA LISTAGEM PRINCIPAL ===== */
+.card .wm-wrap::after {
+  content: "";
+  position: absolute;
+
+  left: var(--wm-big-left);
+  bottom: var(--wm-big-bottom);
+
+  width: var(--wm-big-size);
+  height: var(--wm-big-size);
+
+  background-image: url("logo-marca-dagua.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  opacity: var(--wm-big-opacity);
+  pointer-events: none;
+  z-index: 10;
 }
 
 /* ===== PÁGINA DO PRODUTO (REESCRITA/ISOLADA) ===== */
@@ -436,16 +482,10 @@ body {
   display: block;
 }
 
-/* wrapper do viewer */
-.produto-viewer-wm {
-  display: block;
-  width: 100%;
-}
-
 .produto-img {
   width: 100%;
   height: min(75vh, 800px);
-  object-fit: contain; /* importante: não corta a imagem */
+  object-fit: contain;
   background: rgba(255, 255, 255, 0.97);
   display: block;
 }
@@ -478,7 +518,6 @@ body {
   border-radius: 10px;
 }
 
-/* Thumb: reset total de botão pra não herdar nada e não esticar */
 .produto-thumb {
   appearance: none;
   -webkit-appearance: none;
@@ -524,7 +563,6 @@ body {
   transform: scale(1.02);
 }
 
-/* Thumb com wm-wrap não pode ser width:100% */
 .produto-thumb.wm-wrap {
   width: auto;
   display: inline-flex;
@@ -532,27 +570,6 @@ body {
   line-height: 0;
 }
 
-/* MINIATURAS: controla por variável (0 = off, 1 = on) */
-.produto-thumb.wm-wrap::after {
-  content: "";
-  position: absolute;
-  left: var(--wm-thumb-left);
-  bottom: var(--wm-thumb-bottom);
-
-  width: var(--wm-thumb-size);
-  height: var(--wm-thumb-size);
-
-  background-image: url("logo-marca-dagua.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
-  opacity: calc(var(--wm-thumb-enabled) * var(--wm-thumb-opacity));
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* Botões de navegação: SEM FUNDO */
 .produto-acoes {
   display: flex;
   gap: 10px;
@@ -691,16 +708,4 @@ body {
   .logo-container { height: 200px; }
   .hero h1 { font-size: 36px; }
   .hero p { font-size: 20px; }
-}
-
-/* ===== GARANTE marca d'água COLADA na foto grande ===== */
-.produto-viewer-wm.wm-wrap::after {
-  left: var(--wm-big-left);
-  bottom: var(--wm-big-bottom);
-  width: var(--wm-big-size);
-  height: var(--wm-big-size);
-  opacity: var(--wm-big-opacity);
-  top: auto;
-  right: auto;
-  transform: none;
 }
