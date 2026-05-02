@@ -32,14 +32,14 @@ const PRODUTOS = [
         "camisas/brasil-amar-escudo-masc.png",
         "camisas/brasil-amar-nike-masc.png",
       ],
-      tamanhos: ["P", "M", "G", "GG","XG","2XG"],
+      tamanhos: ["P", "M", "G", "GG","XG","2XG(G2)"],
     },
     jogador: {
       imagens: [
         "camisas/liverpool-jogador-frente.jpg",
         "camisas/liverpool-jogador-costas.jpg"
       ],
-      tamanhos: ["P", "M", "G", "GG"],
+      tamanhos: ["P", "M", "G", "GG","XG","2XG(G2)"],
     },
     feminino: {
       imagens: [
@@ -50,7 +50,45 @@ const PRODUTOS = [
       ],
       tamanhos: ["P", "M", "G", "GG"],
     },
+  {
+  id: 2,                 // ⚠️ Sempre único! Próximo número disponível
+  codigo: "CAN002",       // ⚠️ Sempre único! Ex: "CAM-008"
+  nome: "Brasil Azul 2026 Copa",
+  descricao: "Camisa oficial da Seleção Brasileira para a Copa do Mundo de 2026. Design nas cores secundária e com a famosa tecnologia Nike Dri-FIT para máximo conforto e performance. Escudo bordado e detalhes exclusivos da CBF. Ideal para torcer pelo Hexa!"",
+  categoria: "copa2026",
+    liga: "Copa do Mundo 2026",
+  material: "NIKE Dry-Fit",     // ou "Poliéster", etc.
+
+  masculino: {
+    imagens: [
+      "camisas/brasil-azul-frente-masc.jpg",
+     "camisas/brasil-azul-escudo-masc.png",
+      "camisas/brasil-azul-costas-masc.jpg",
+      // Quantas quiser! Só seguir a ordem.
+    ],
+    tamanhos: ["P", "M", "G", "GG","XG", "2XG(G2)"]
   },
+
+  feminino: {
+    imagens: [
+     "camisas/brasil-azul-frente-fem.jpg",
+       "camisas/brasil-azul-costas-fem.png",
+       "camisas/brasil-azul-escudo-fem.jpg",
+      // Quantas quiser!
+    ],
+    tamanhos: ["P", "M", "G", "GG"]
+  },
+
+  jogador: {
+    imagens: [
+      "imagens/produto-XXX/jog-1.jpg",
+      "imagens/produto-XXX/jog-2.jpg"
+      // Quantas quiser!
+    ],
+    tamanhos: ["P", "M", "G", "GG","XG", "2XG(G2)"]
+  }
+},
+
   
   // PARA ADICIONAR NOVO PRODUTO, COPIE O FORMATO ABAIXO:
   /*
