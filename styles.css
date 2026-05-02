@@ -16,7 +16,7 @@
      ========================================================= */
   --wm-big-left: 1px;
   --wm-big-bottom: 1px;
-  --wm-big-size: 250px;   /* tamanho da marca na foto grande */
+  --wm-big-size: 800px;   /* tamanho da marca na foto grande */
   --wm-big-opacity: 0.8;    /* 1 = 100% visível */
   
   --wm-thumb-enabled: 0;  /* 0 = NÃO mostra nas miniaturas | 1 = mostra */
