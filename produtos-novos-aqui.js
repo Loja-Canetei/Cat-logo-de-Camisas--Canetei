@@ -1,3 +1,37 @@
+/* =========================
+   LIGAS / CATEGORIAS (FILTRO)
+   Baseado no seu HTML + produtos existentes
+
+   CATEGORIAS (campo "categoria"):
+   - copa2026    => Copa do Mundo 2026
+   - laliga      => La Liga  
+   - premier     => Premier League
+   - seriea      => Serie A
+   - bundesliga  => Bundesliga
+   - ligue1      => Ligue 1
+   - brasileirao => Brasileirão
+   - mls         => MLS
+   - saudi       => Saudi Pro League
+   - selecoes    => Seleções
+   - retros      => Retrô
+
+   LIGAS (campo "liga"):
+   - "Copa do Mundo 2026"
+   - "La Liga"
+   - "Premier League"
+   - "Serie A"
+   - "Bundesliga"
+   - "Ligue 1"
+   - "Brasileirão"
+   - "MLS"
+   - "Saudi Pro League"
+   - "Seleções"
+   - "Retrô"
+
+   ⚠️ IMPORTANTE:
+   - categoria = value do filtro (ex.: "copa2026", "premier")
+   - liga = texto para exibição (ex.: "Copa do Mundo 2026", "Premier League")
+========================= */
 // ======= CONFIGURAÇÕES GERAIS =======
 const WHATSAPP_NUMERO = "5573999571065";
 const NOME_LOJA = "Loja Canetei";
@@ -75,8 +109,8 @@ const PRODUTOS = [
   feminino: {
     imagens: [
      "camisas/brasil-azul-frente-fem.jpg",
-       "camisas/brasil-azul-costas-fem.png",
-       "camisas/brasil-azul-escudo-fem.jpg",
+       "camisas/brasil-azul-costas-fem.jpg",
+       "camisas/brasil-azul-escudo-fem.png",
       // Quantas quiser!
     ],
     tamanhos: ["P", "M", "G", "GG"]
