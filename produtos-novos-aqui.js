@@ -45,7 +45,7 @@ const PRODUTOS = [
       imagens: [
         "camisas/brasil-amar-frente-fem.jpg",
         "camisas/brasil-amar-costas-fem.jpg",
-        "camisas/brasil-amar-gola-fem.jpg",
+        "camisas/brasil-amar-gola-fem.png",
         "camisas/brasil-amar-escudo-masc.png",
       ],
       tamanhos: ["P", "M", "G", "GG"],
