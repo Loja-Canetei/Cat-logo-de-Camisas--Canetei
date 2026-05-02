@@ -23,7 +23,6 @@ const PRODUTOS = [
     categoria: "copa2026",
     liga: "Copa do Mundo 2026",
     descricao: "Camisa oficial da Seleção Brasileira para a Copa do Mundo de 2026. Design renovado mantém as cores tradicionais com tecnologia Nike Dri-FIT para máximo conforto e performance. Escudo bordado e detalhes exclusivos da CBF. Ideal para torcer pelo Hexa!",
-    preco_ref: "R$ 89,90",
     material: "100% Poliéster com tecnologia Dri-FIT",
     masculino: {
       imagens: [
@@ -33,7 +32,7 @@ const PRODUTOS = [
         "camisas/brasil-amar-escudo-masc.png",
         "camisas/brasil-amar-nike-masc.png",
       ],
-      tamanhos: ["P", "M", "G", "GG"],
+      tamanhos: ["P", "M", "G", "GG","XG","2XG"],
     },
     jogador: {
       imagens: [
@@ -44,11 +43,11 @@ const PRODUTOS = [
     },
     feminino: {
       imagens: [
-        "camisas/brasil-azul-copa-frente-fem-torcedor.png",
-         "camisas/brasil-azul-copa-costas-fem-torcedor.png",
-         "camisas/brasil-azul-copa-gola-fem-torcedor.png",
+        "camisas/brasil-amar-frente-fem.jpg",
+        "camisas/brasil-amar-costas-fem.jpg",
+        "camisas/brasil-amar-gola-fem.jpg",
       ],
-      tamanhos: ["PP", "P", "M", "G", "GG"],
+      tamanhos: ["P", "M", "G", "GG"],
     },
   },
   
