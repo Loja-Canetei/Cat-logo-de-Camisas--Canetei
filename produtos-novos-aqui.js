@@ -124,6 +124,7 @@ const PRODUTOS = [
     ],
     tamanhos: ["P", "M", "G", "GG","XG", "2XG(G2)"]
   }
+     
 },
  {
     id: 3,                    // ⚠️ sempre único (próximo número)
@@ -146,6 +147,7 @@ const PRODUTOS = [
    
     }
   },
+   
    {
     id: 4,                    // ⚠️ sempre único (próximo número)
     codigo: "CAN004",           // ⚠️ sempre único (CAN001, CAN002...)
