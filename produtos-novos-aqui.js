@@ -125,8 +125,48 @@ const PRODUTOS = [
     tamanhos: ["P", "M", "G", "GG","XG", "2XG(G2)"]
   }
 },
+ {
+    id: 3,                    // ⚠️ sempre único (próximo número)
+    codigo: "CAN003",           // ⚠️ sempre único (CAN001, CAN002...)
+    nome: "Cropped Amarelo Brasil Copa 2026",
+    descricao: "Camisa oficial da seleção brasileira para a copa do mundo de 2026 na versão cropped com acabamentos e tecido do modelo jogador. Símbolo da nike e escudo CBF silkados.",
+    categoria: "copa2026",        // ⚠️ usar value do filtro (laliga, premier, copa2026...)
+    liga: "Copa do Mundo 2026",            // texto bonito para exibir
+    material: "NIKE Dry-Fit",
+
+   
+    feminino: {
+      imagens: [
+        "camisas/brasil-amar-cropped-frente.jpg",
+        "camisas/brasil-amar-cropped-costas.jpg"
+      ],
+      tamanhos: ["P", "M", "G", "GG"]
+    },
+
+   
+    }
+  },
+   {
+    id: 4,                    // ⚠️ sempre único (próximo número)
+    codigo: "CAN004",           // ⚠️ sempre único (CAN001, CAN002...)
+    nome: "Top Amarelo Brasil Copa 2026",
+    descricao: "Camisa oficial da seleção brasileira para a copa do mundo de 2026 na versão top com acabamentos e tecido do modelo jogador. Símbolo da nike e escudo CBF silkados.",
+    categoria: "copa2026",        // ⚠️ usar value do filtro (laliga, premier, copa2026...)
+    liga: "Copa do Mundo 2026",            // texto bonito para exibir
+    material: "NIKE Dry-Fit",
+
+   
+    feminino: {
+      imagens: [
+        "camisas/brasil-amar-top-frente.jpg",
+        "camisas/brasil-amar-top-costas.jpg"
+      ],
+      tamanhos: ["P", "M", "G", "GG"]
+    },
 
   
+    }
+  },
   // PARA ADICIONAR NOVO PRODUTO, COPIE O FORMATO ABAIXO:
   /*
   {
