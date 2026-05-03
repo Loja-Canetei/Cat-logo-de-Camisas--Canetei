@@ -126,6 +126,7 @@ const PRODUTOS = [
   }
      
 },
+   
  {
     id: 3,                    // ⚠️ sempre único (próximo número)
     codigo: "CAN003",           // ⚠️ sempre único (CAN001, CAN002...)
@@ -142,12 +143,9 @@ const PRODUTOS = [
         "camisas/brasil-amar-cropped-costas.jpg"
       ],
       tamanhos: ["P", "M", "G", "GG"]
+    }
     },
 
-   
-    }
-  },
-   
    {
     id: 4,                    // ⚠️ sempre único (próximo número)
     codigo: "CAN004",           // ⚠️ sempre único (CAN001, CAN002...)
@@ -164,11 +162,9 @@ const PRODUTOS = [
         "camisas/brasil-amar-top-costas.jpg"
       ],
       tamanhos: ["P", "M", "G", "GG"]
-    },
-
-  
     }
-  },
+ },
+  
   // PARA ADICIONAR NOVO PRODUTO, COPIE O FORMATO ABAIXO:
   /*
   {
