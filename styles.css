@@ -32,7 +32,7 @@ body {
   margin: 0;
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
   color: #20112d;
-  background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+  background: var(--roxo-escuro);
   min-height: 100vh;
 }
 
