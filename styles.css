@@ -55,7 +55,7 @@ body {
 
 /* Banner otimizado para 1920x420 */
 .logo-container {
-  width: 85%;
+  width: 80%;
   height: 90px;
   padding: 0;
   background: var(--roxo-escuro);
