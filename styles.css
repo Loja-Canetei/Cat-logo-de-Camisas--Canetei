@@ -54,10 +54,10 @@ body {
 
 /* Banner centralizado */
 .logo-container {
-  width: 100%;
+  width: 80%;
   height: 100px;
   padding: 0;
-  background: var(--roxo-escuro);
+  background: var(--roxo-canetei);
   position: relative;
   overflow: hidden;
   display: block;
