@@ -5,7 +5,6 @@
   --cinza-claro: #f6f7fb;
   --branco: #fff;
   --verde-wpp: #16a34a;
-  --roxo-canetei: #481c4d;
 
   /* ok manter, mas NÃO vamos usar na barra do produto */
   --produto-bar-bg: rgba(255, 255, 255, 0.93);
@@ -47,21 +46,22 @@ body {
 .top {
   position: sticky;
   top: 0;
-  background: var(--roxo-canetei);
+  background: var(--roxo-principal);
   border-bottom: 4px solid var(--rosa-destaque);
   z-index: 100;
   padding: 0;
 }
 
-/* Banner otimizado para 1920x420 */
+/* Banner centralizado */
 .logo-container {
   width: 80%;
-  height: 90px;
+  height: 100px;
   padding: 0;
   background: var(--roxo-escuro);
   position: relative;
   overflow: hidden;
   display: block;
+  margin: 0 auto;
 }
 
 .logo {
