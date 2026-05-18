@@ -56,6 +56,7 @@ const PRODUTOS = [
     nome: "Brasil Amarelo 2026 Copa",
     categoria: "copa2026",
     liga: "Copa do Mundo 2026",
+     prontaEntrega: true,  // 👈 ADICIONE ESTA LINHA nos que estão em estoque
     descricao: "Camisa oficial da Seleção Brasileira para a Copa do Mundo de 2026. Design renovado mantém as cores tradicionais com tecnologia Nike Dri-FIT para máximo conforto e performance. Escudo bordado e detalhes exclusivos da CBF. Ideal para torcer pelo Hexa!",
     material: "100% Poliéster com tecnologia Dri-FIT",
     masculino: {
