@@ -223,12 +223,22 @@ function aplicarFiltros() {
       (p.liga || "").toLowerCase().includes(termo) ||
       (p.codigo || "").toLowerCase().includes(termo);
 
-    const okCat = cat === "todos" ? true : p.categoria === cat;
+    // Lógica do filtro com "Pronta Entrega" especial
+    let okCat;
+    if (cat === "todos") {
+      okCat = true;
+    } else if (cat === "prontaEntrega") {
+      okCat = p.prontaEntrega === true;
+    } else {
+      okCat = p.categoria === cat;
+    }
+
     return okTermo && okCat;
   });
 
   render(lista);
 }
+
 
 $busca?.addEventListener("input", aplicarFiltros);
 $filtro?.addEventListener("change", aplicarFiltros);
